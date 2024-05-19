@@ -1,0 +1,17 @@
+{
+  "name": "tenorflow",
+  "version": "0.0.1",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "tang",
+  "license": "MIT",
+  "devDependencies": {
+    "@grame/faustwasm": "^0.2.2"
+  },
+  "dependencies": {
+    "layui": "^2.9.9"
+  }
+}

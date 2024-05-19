@@ -1,0 +1,382 @@
+{
+    "name": "tenorflow",
+    "filename": "tenorflow",
+    "version": "2.74.1",
+    "compile_options": "-lang wasm-i -ct 1 -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 2",
+    "library_list": [
+        "/usr/share/faust/stdfaust.lib",
+        "/usr/share/faust/oscillators.lib",
+        "/usr/share/faust/basics.lib",
+        "/usr/share/faust/maths.lib",
+        "/usr/share/faust/platform.lib",
+        "/usr/share/faust/noises.lib",
+        "/usr/share/faust/signals.lib",
+        "/usr/share/faust/filters.lib",
+        "/usr/share/faust/physmodels.lib"
+    ],
+    "include_pathnames": [
+        "/share/faust",
+        "/usr/local/share/faust",
+        "/usr/share/faust",
+        "."
+    ],
+    "size": 278780,
+    "code": "MGqEAeQBHw==",
+    "inputs": 0,
+    "outputs": 1,
+    "meta": [
+        {
+            "basics.lib/name": "Faust Basic Element Library"
+        },
+        {
+            "basics.lib/tabulateNd": "Copyright (C) 2023 Bart Brouns <bart@magnetophon.nl>"
+        },
+        {
+            "basics.lib/version": "1.15.0"
+        },
+        {
+            "compile_options": "-lang wasm-i -ct 1 -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 2"
+        },
+        {
+            "filename": "tenorflow"
+        },
+        {
+            "filters.lib/fir:author": "Julius O. Smith III"
+        },
+        {
+            "filters.lib/fir:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>"
+        },
+        {
+            "filters.lib/fir:license": "MIT-style STK-4.3 license"
+        },
+        {
+            "filters.lib/iir:author": "Julius O. Smith III"
+        },
+        {
+            "filters.lib/iir:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>"
+        },
+        {
+            "filters.lib/iir:license": "MIT-style STK-4.3 license"
+        },
+        {
+            "filters.lib/lowpass0_highpass1": "MIT-style STK-4.3 license"
+        },
+        {
+            "filters.lib/lowpass0_highpass1:author": "Julius O. Smith III"
+        },
+        {
+            "filters.lib/lowpass:author": "Julius O. Smith III"
+        },
+        {
+            "filters.lib/lowpass:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>"
+        },
+        {
+            "filters.lib/lowpass:license": "MIT-style STK-4.3 license"
+        },
+        {
+            "filters.lib/name": "Faust Filters Library"
+        },
+        {
+            "filters.lib/resonbp:author": "Julius O. Smith III"
+        },
+        {
+            "filters.lib/resonbp:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>"
+        },
+        {
+            "filters.lib/resonbp:license": "MIT-style STK-4.3 license"
+        },
+        {
+            "filters.lib/tf2:author": "Julius O. Smith III"
+        },
+        {
+            "filters.lib/tf2:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>"
+        },
+        {
+            "filters.lib/tf2:license": "MIT-style STK-4.3 license"
+        },
+        {
+            "filters.lib/tf2s:author": "Julius O. Smith III"
+        },
+        {
+            "filters.lib/tf2s:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>"
+        },
+        {
+            "filters.lib/tf2s:license": "MIT-style STK-4.3 license"
+        },
+        {
+            "filters.lib/version": "1.3.0"
+        },
+        {
+            "maths.lib/author": "GRAME"
+        },
+        {
+            "maths.lib/copyright": "GRAME"
+        },
+        {
+            "maths.lib/license": "LGPL with exception"
+        },
+        {
+            "maths.lib/name": "Faust Math Library"
+        },
+        {
+            "maths.lib/version": "2.8.0"
+        },
+        {
+            "name": "tenorflow"
+        },
+        {
+            "noises.lib/name": "Faust Noise Generator Library"
+        },
+        {
+            "noises.lib/version": "1.4.1"
+        },
+        {
+            "oscillators.lib/lf_sawpos:author": "Bart Brouns, revised by Stéphane Letz"
+        },
+        {
+            "oscillators.lib/lf_sawpos:licence": "STK-4.3"
+        },
+        {
+            "oscillators.lib/name": "Faust Oscillator Library"
+        },
+        {
+            "oscillators.lib/sawN:author": "Julius O. Smith III"
+        },
+        {
+            "oscillators.lib/sawN:license": "STK-4.3"
+        },
+        {
+            "oscillators.lib/version": "1.5.1"
+        },
+        {
+            "physmodels.lib/autobendFreq:author": "Mike Olsen"
+        },
+        {
+            "physmodels.lib/name": "Faust Physical Models Library"
+        },
+        {
+            "physmodels.lib/version": "1.1.0"
+        },
+        {
+            "physmodels.lib/vocalEffort:author": "Mike Olsen"
+        },
+        {
+            "platform.lib/name": "Generic Platform Library"
+        },
+        {
+            "platform.lib/version": "1.3.0"
+        },
+        {
+            "signals.lib/name": "Faust Signal Routing Library"
+        },
+        {
+            "signals.lib/version": "1.5.0"
+        }
+    ],
+    "ui": [
+        {
+            "type": "vgroup",
+            "label": "tenorflow",
+            "items": [
+                {
+                    "type": "hslider",
+                    "label": "formantBandwidth_0",
+                    "shortname": "formantBandwidth_0",
+                    "address": "/tenorflow/formantBandwidth_0",
+                    "index": 278636,
+                    "init": 10,
+                    "min": 0,
+                    "max": 500,
+                    "step": 1
+                },
+                {
+                    "type": "hslider",
+                    "label": "formantBandwidth_1",
+                    "shortname": "formantBandwidth_1",
+                    "address": "/tenorflow/formantBandwidth_1",
+                    "index": 278660,
+                    "init": 10,
+                    "min": 0,
+                    "max": 500,
+                    "step": 1
+                },
+                {
+                    "type": "hslider",
+                    "label": "formantBandwidth_2",
+                    "shortname": "formantBandwidth_2",
+                    "address": "/tenorflow/formantBandwidth_2",
+                    "index": 278684,
+                    "init": 10,
+                    "min": 0,
+                    "max": 500,
+                    "step": 1
+                },
+                {
+                    "type": "hslider",
+                    "label": "formantBandwidth_3",
+                    "shortname": "formantBandwidth_3",
+                    "address": "/tenorflow/formantBandwidth_3",
+                    "index": 278708,
+                    "init": 10,
+                    "min": 0,
+                    "max": 500,
+                    "step": 1
+                },
+                {
+                    "type": "hslider",
+                    "label": "formantBandwidth_4",
+                    "shortname": "formantBandwidth_4",
+                    "address": "/tenorflow/formantBandwidth_4",
+                    "index": 278732,
+                    "init": 10,
+                    "min": 0,
+                    "max": 500,
+                    "step": 1
+                },
+                {
+                    "type": "hslider",
+                    "label": "formantFreq_0",
+                    "shortname": "formantFreq_0",
+                    "address": "/tenorflow/formantFreq_0",
+                    "index": 278632,
+                    "init": 100,
+                    "min": 0,
+                    "max": 8000,
+                    "step": 1
+                },
+                {
+                    "type": "hslider",
+                    "label": "formantFreq_1",
+                    "shortname": "formantFreq_1",
+                    "address": "/tenorflow/formantFreq_1",
+                    "index": 278656,
+                    "init": 100,
+                    "min": 0,
+                    "max": 8000,
+                    "step": 1
+                },
+                {
+                    "type": "hslider",
+                    "label": "formantFreq_2",
+                    "shortname": "formantFreq_2",
+                    "address": "/tenorflow/formantFreq_2",
+                    "index": 278680,
+                    "init": 100,
+                    "min": 0,
+                    "max": 8000,
+                    "step": 1
+                },
+                {
+                    "type": "hslider",
+                    "label": "formantFreq_3",
+                    "shortname": "formantFreq_3",
+                    "address": "/tenorflow/formantFreq_3",
+                    "index": 278704,
+                    "init": 100,
+                    "min": 0,
+                    "max": 8000,
+                    "step": 1
+                },
+                {
+                    "type": "hslider",
+                    "label": "formantFreq_4",
+                    "shortname": "formantFreq_4",
+                    "address": "/tenorflow/formantFreq_4",
+                    "index": 278728,
+                    "init": 100,
+                    "min": 0,
+                    "max": 8000,
+                    "step": 1
+                },
+                {
+                    "type": "hslider",
+                    "label": "formantGain_0",
+                    "shortname": "formantGain_0",
+                    "address": "/tenorflow/formantGain_0",
+                    "index": 262208,
+                    "init": 0,
+                    "min": 0,
+                    "max": 1,
+                    "step": 0.01
+                },
+                {
+                    "type": "hslider",
+                    "label": "formantGain_1",
+                    "shortname": "formantGain_1",
+                    "address": "/tenorflow/formantGain_1",
+                    "index": 278652,
+                    "init": 0,
+                    "min": 0,
+                    "max": 1,
+                    "step": 0.01
+                },
+                {
+                    "type": "hslider",
+                    "label": "formantGain_2",
+                    "shortname": "formantGain_2",
+                    "address": "/tenorflow/formantGain_2",
+                    "index": 278676,
+                    "init": 0,
+                    "min": 0,
+                    "max": 1,
+                    "step": 0.01
+                },
+                {
+                    "type": "hslider",
+                    "label": "formantGain_3",
+                    "shortname": "formantGain_3",
+                    "address": "/tenorflow/formantGain_3",
+                    "index": 278700,
+                    "init": 0,
+                    "min": 0,
+                    "max": 1,
+                    "step": 0.01
+                },
+                {
+                    "type": "hslider",
+                    "label": "formantGain_4",
+                    "shortname": "formantGain_4",
+                    "address": "/tenorflow/formantGain_4",
+                    "index": 278724,
+                    "init": 0,
+                    "min": 0,
+                    "max": 1,
+                    "step": 0.01
+                },
+                {
+                    "type": "hslider",
+                    "label": "freq",
+                    "shortname": "freq",
+                    "address": "/tenorflow/freq",
+                    "index": 262164,
+                    "init": 100,
+                    "min": 20,
+                    "max": 1000,
+                    "step": 0.1
+                },
+                {
+                    "type": "hslider",
+                    "label": "gain",
+                    "shortname": "gain",
+                    "address": "/tenorflow/gain",
+                    "index": 262144,
+                    "init": 0,
+                    "min": 0,
+                    "max": 1,
+                    "step": 0.01
+                },
+                {
+                    "type": "hslider",
+                    "label": "gate",
+                    "shortname": "gate",
+                    "address": "/tenorflow/gate",
+                    "index": 262148,
+                    "init": 0,
+                    "min": 0,
+                    "max": 1,
+                    "step": 1
+                }
+            ]
+        }
+    ]
+}
