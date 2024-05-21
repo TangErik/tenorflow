@@ -9,7 +9,8 @@
   "author": "tang",
   "license": "MIT",
   "devDependencies": {
-    "@grame/faustwasm": "^0.2.2"
+    "@grame/faustwasm": "^0.2.2",
+    "@shren/faust-ui": "^1.1.9"
   },
   "dependencies": {
     "layui": "^2.9.9"

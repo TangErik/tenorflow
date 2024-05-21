@@ -20,8 +20,8 @@
         "/usr/share/faust",
         "."
     ],
-    "size": 278780,
-    "code": "MGqEAeQBHw==",
+    "size": 278800,
+    "code": "qOmUAeQBHw==",
     "inputs": 0,
     "outputs": 1,
     "meta": [
@@ -48,6 +48,12 @@
         },
         {
             "filters.lib/fir:license": "MIT-style STK-4.3 license"
+        },
+        {
+            "filters.lib/highpass:author": "Julius O. Smith III"
+        },
+        {
+            "filters.lib/highpass:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>"
         },
         {
             "filters.lib/iir:author": "Julius O. Smith III"
@@ -183,7 +189,7 @@
                     "label": "formantBandwidth_0",
                     "shortname": "formantBandwidth_0",
                     "address": "/tenorflow/formantBandwidth_0",
-                    "index": 278636,
+                    "index": 278656,
                     "init": 10,
                     "min": 0,
                     "max": 500,
@@ -194,7 +200,7 @@
                     "label": "formantBandwidth_1",
                     "shortname": "formantBandwidth_1",
                     "address": "/tenorflow/formantBandwidth_1",
-                    "index": 278660,
+                    "index": 278680,
                     "init": 10,
                     "min": 0,
                     "max": 500,
@@ -205,7 +211,7 @@
                     "label": "formantBandwidth_2",
                     "shortname": "formantBandwidth_2",
                     "address": "/tenorflow/formantBandwidth_2",
-                    "index": 278684,
+                    "index": 278704,
                     "init": 10,
                     "min": 0,
                     "max": 500,
@@ -216,7 +222,7 @@
                     "label": "formantBandwidth_3",
                     "shortname": "formantBandwidth_3",
                     "address": "/tenorflow/formantBandwidth_3",
-                    "index": 278708,
+                    "index": 278728,
                     "init": 10,
                     "min": 0,
                     "max": 500,
@@ -227,7 +233,7 @@
                     "label": "formantBandwidth_4",
                     "shortname": "formantBandwidth_4",
                     "address": "/tenorflow/formantBandwidth_4",
-                    "index": 278732,
+                    "index": 278752,
                     "init": 10,
                     "min": 0,
                     "max": 500,
@@ -238,7 +244,7 @@
                     "label": "formantFreq_0",
                     "shortname": "formantFreq_0",
                     "address": "/tenorflow/formantFreq_0",
-                    "index": 278632,
+                    "index": 278652,
                     "init": 100,
                     "min": 0,
                     "max": 8000,
@@ -249,7 +255,7 @@
                     "label": "formantFreq_1",
                     "shortname": "formantFreq_1",
                     "address": "/tenorflow/formantFreq_1",
-                    "index": 278656,
+                    "index": 278676,
                     "init": 100,
                     "min": 0,
                     "max": 8000,
@@ -260,7 +266,7 @@
                     "label": "formantFreq_2",
                     "shortname": "formantFreq_2",
                     "address": "/tenorflow/formantFreq_2",
-                    "index": 278680,
+                    "index": 278700,
                     "init": 100,
                     "min": 0,
                     "max": 8000,
@@ -271,7 +277,7 @@
                     "label": "formantFreq_3",
                     "shortname": "formantFreq_3",
                     "address": "/tenorflow/formantFreq_3",
-                    "index": 278704,
+                    "index": 278724,
                     "init": 100,
                     "min": 0,
                     "max": 8000,
@@ -282,7 +288,7 @@
                     "label": "formantFreq_4",
                     "shortname": "formantFreq_4",
                     "address": "/tenorflow/formantFreq_4",
-                    "index": 278728,
+                    "index": 278748,
                     "init": 100,
                     "min": 0,
                     "max": 8000,
@@ -304,7 +310,7 @@
                     "label": "formantGain_1",
                     "shortname": "formantGain_1",
                     "address": "/tenorflow/formantGain_1",
-                    "index": 278652,
+                    "index": 278672,
                     "init": 0,
                     "min": 0,
                     "max": 1,
@@ -315,7 +321,7 @@
                     "label": "formantGain_2",
                     "shortname": "formantGain_2",
                     "address": "/tenorflow/formantGain_2",
-                    "index": 278676,
+                    "index": 278696,
                     "init": 0,
                     "min": 0,
                     "max": 1,
@@ -326,7 +332,7 @@
                     "label": "formantGain_3",
                     "shortname": "formantGain_3",
                     "address": "/tenorflow/formantGain_3",
-                    "index": 278700,
+                    "index": 278720,
                     "init": 0,
                     "min": 0,
                     "max": 1,
@@ -337,7 +343,7 @@
                     "label": "formantGain_4",
                     "shortname": "formantGain_4",
                     "address": "/tenorflow/formantGain_4",
-                    "index": 278724,
+                    "index": 278744,
                     "init": 0,
                     "min": 0,
                     "max": 1,
@@ -375,6 +381,17 @@
                     "min": 0,
                     "max": 1,
                     "step": 1
+                },
+                {
+                    "type": "hslider",
+                    "label": "noiseVolume",
+                    "shortname": "noiseVolume",
+                    "address": "/tenorflow/noiseVolume",
+                    "index": 278628,
+                    "init": 0,
+                    "min": 0,
+                    "max": 10,
+                    "step": 0.1
                 }
             ]
         }

@@ -1,3 +1,5 @@
+let faustNode = null;  // 在全局作用域定义 faustNode
+
 /**
  * @typedef {import("./types").FaustDspDistribution} FaustDspDistribution
  * @typedef {import("./faustwasm").FaustAudioWorkletNode} FaustAudioWorkletNode
@@ -131,50 +133,42 @@ $buttonDsp.onclick = () => {
  */
 const createFaustNode = async (audioContext, dspName = "template", voices = 0, sp = false) => {
     // Import necessary Faust modules and data
-    const { FaustMonoDspGenerator, FaustPolyDspGenerator } = await import("./faustwasm/index.js");
+    const { FaustMonoDspGenerator, FaustPolyDspGenerator, instantiateFaustModule, LibFaust, FaustCompiler } = await import("../node_modules/@grame/faustwasm/dist/esm-bundle/index.js");
 
-    // Load DSP metadata from JSON
-    /** @type {FaustDspMeta} */
-    const dspMeta = await (await fetch(`./${dspName}.json`)).json();
+    const faustModule = await instantiateFaustModule();
+    const libFaust = new LibFaust(faustModule);
+    const faustCompiler = new FaustCompiler(libFaust);
+    // Load DSP file from JSON
+    const dspText = await (await fetch("../tenorflow.dsp")).text();
 
-    // Compile the DSP module from WebAssembly binary data
-    const dspModule = await WebAssembly.compileStreaming(await fetch(`./${dspName}.wasm`));
-
-    // Create an object representing Faust DSP with metadata and module
-    /** @type {FaustDspDistribution} */
-    const faustDsp = { dspMeta, dspModule };
-
+    let dspMeta;
     /** @type {FaustAudioWorkletNode} */
     let faustNode;
 
     // Create either a polyphonic or monophonic Faust audio node based on the number of voices
     if (voices > 0) {
-
-        // Try to load optional mixer and effect modules
-        try {
-            faustDsp.mixerModule = await WebAssembly.compileStreaming(await fetch("./mixerModule.wasm"));
-            faustDsp.effectMeta = await (await fetch(`./${dspName}_effect.json`)).json();
-            faustDsp.effectModule = await WebAssembly.compileStreaming(await fetch(`./${dspName}_effect.wasm`));
-        } catch (e) { }
-
         const generator = new FaustPolyDspGenerator();
+        await generator.compile(faustCompiler, "tenorflow", dspText, "-I libraries/ -ftz 2");
         faustNode = await generator.createNode(
             audioContext,
             voices,
             "FaustPolyDSP",
-            { module: faustDsp.dspModule, json: JSON.stringify(faustDsp.dspMeta) },
-            faustDsp.mixerModule,
-            faustDsp.effectModule ? { module: faustDsp.effectModule, json: JSON.stringify(faustDsp.effectMeta) } : undefined,
+            undefined,
+            undefined,
+            undefined,
             sp
         );
+        dspMeta = generator.getMeta();
     } else {
         const generator = new FaustMonoDspGenerator();
+        await generator.compile(faustCompiler, "tenorflow", dspText, "-I libraries/ -ftz 2");
         faustNode = await generator.createNode(
             audioContext,
             "FaustMonoDSP",
-            { module: faustDsp.dspModule, json: JSON.stringify(faustDsp.dspMeta) },
+            undefined,
             sp
         );
+        dspMeta = generator.getMeta();
     }
 
     // Return an object with the Faust audio node and the DSP metadata
@@ -195,6 +189,7 @@ const createFaustUI = async (faustNode) => {
     $container.style.width = "100%";
     $container.style.height = "100%";
     $divFaustUI.appendChild($container);
+    /** @type {import("@shren/faust-ui").FaustUI} */
     const faustUI = new FaustUI({
         ui: faustNode.getUI(),
         root: $container,
@@ -206,11 +201,43 @@ const createFaustUI = async (faustNode) => {
     $container.style.minWidth = `${faustUI.minWidth}px`;
     $container.style.minHeight = `${faustUI.minHeight}px`;
     faustUI.resize();
+    return faustUI;
+};
+
+const FORMANT_DATA = {
+    A: {
+        freq: [650, 1080, 2650, 2900, 3250],
+        bandwidth: [50, 90, 120, 130, 140],
+        gain: [1, 0.5, 0.44, 0.39, 0.07],
+    }
+};
+
+/**
+ * @param {import("./faustwasm/index").FaustAudioWorkletNode} faustNode
+ * @param {import("@shren/faust-ui").FaustUI} faustUI
+ **/
+const bindButtons = (faustNode, faustUI) => {
+    document.getElementById('A-button').addEventListener('click', () => {
+        if (!faustNode) {
+            console.error("FaustNode is not initialized.");
+            return;
+        }
+
+        // Setting formant parameters using structured data
+        ['bandwidth', 'freq', 'gain'].forEach((paramType, i) => {
+            FORMANT_DATA.A[paramType].forEach((value, index) => {
+                const paramName = `/tenorflow/formant${paramType.charAt(0).toUpperCase() + paramType.slice(1)}_${index}`;
+                faustNode.setParamValue(paramName, value);
+                faustUI.paramChangeByDSP(paramName, value);
+            });
+        });
+    });
 };
 
 (async () => {
-    const { faustNode, dspMeta: { name } } = await createFaustNode(audioContext, "tenorflow");
-    await createFaustUI(faustNode);
+    const { faustNode: localFaustNode, dspMeta: { name } } = await createFaustNode(audioContext, "tenorflow");
+    faustNode = localFaustNode;  // 初始化全局的 faustNode
+    const faustUI = await createFaustUI(faustNode);
     faustNode.connect(audioContext.destination);
     if (faustNode.numberOfInputs) await buildAudioDeviceMenu(faustNode);
     else $spanAudioInput.hidden = true;
@@ -218,5 +245,6 @@ const createFaustUI = async (faustNode) => {
     else $spanMidiInput.hidden = true;
     $buttonDsp.disabled = false;
     document.title = name;
+    bindButtons(faustNode, faustUI);
 })();
 
