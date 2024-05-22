@@ -209,7 +209,12 @@ const FORMANT_DATA = {
         freq: [650, 1080, 2650, 2900, 3250],
         bandwidth: [50, 90, 120, 130, 140],
         gain: [1, 0.5, 0.44, 0.39, 0.07],
-    }
+    },
+    E: {
+        freq: [400, 1700, 2600, 3200, 3580],
+        bandwidth: [70, 80, 100, 120, 120],
+        gain: [1, 0.2, 0.25, 0.2, 0.1],
+    },
 };
 
 /**
@@ -223,7 +228,6 @@ const bindButtons = (faustNode, faustUI) => {
             return;
         }
 
-        // Setting formant parameters using structured data
         ['bandwidth', 'freq', 'gain'].forEach((paramType, i) => {
             FORMANT_DATA.A[paramType].forEach((value, index) => {
                 const paramName = `/tenorflow/formant${paramType.charAt(0).toUpperCase() + paramType.slice(1)}_${index}`;
