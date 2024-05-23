@@ -1,7 +1,7 @@
 import("stdfaust.lib");
 
-formantFs = par(i, 5, hslider("/h:formants/v:formant_%i/formantFreq_%i", 100, 0, 8000, 1));
-formantBWs = par(i, 5, hslider("/h:formants/v:formant_%i/formantBandwidth_%i", 10, 0, 500, 1));
+formantFs = par(i, 5, hslider("/h:formants/v:formant_%i/formantFreq_%i", 100, 0, 4000, 1));
+formantBWs = par(i, 5, hslider("/h:formants/v:formant_%i/formantBandwidth_%i", 10, 0, 200, 1));
 formantGs = par(i, 5, hslider("/h:formants/v:formant_%i/formantGain_%i", 0, 0, 1, 0.01));
 formantFilterbank = par(i, 5, fi.resonbp(f, q, g) with {
     f = ba.take(i + 1, formantFs) : pm.autobendFreq(i, freq, 4);
