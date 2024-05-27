@@ -1,0 +1,85 @@
+body {
+    color: rgb(255, 255, 255);
+    background-color: #91d4ea;
+    display: flex;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    position: absolute;
+}
+
+.container {
+    display: flex;
+    width: 100%;
+    height: 100vh; /* 设置容器高度为视口高度 */
+}
+
+#trapezoid-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%; /* 充满整个容器高度 */
+}
+
+#controls-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column; /* 垂直排列元素 */
+    align-items: center;
+    justify-content: center;
+}
+
+#synthesizer-container {
+    flex: 3; /* 给合成器更多的空间 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+main {
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 100%;
+}
+
+main span {
+    position: relative;
+    display: flex;
+}
+
+main span[hidden] {
+    display: none;
+}
+
+main span span {
+    margin: 0px 10px;
+    flex: 1;
+}
+
+main span select {
+    flex: 2;
+}
+
+#dsp-switch {
+    margin: 20px auto;
+}
+
+#vowel {
+    margin: 20px auto;
+}
+
+#button-dsp {
+    padding: 10px;
+}
+
+#div-faust-ui {
+    flex: 1 1 auto;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+}

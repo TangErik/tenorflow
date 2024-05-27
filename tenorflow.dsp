@@ -9,7 +9,7 @@ formantFilterbank = par(i, 5, fi.resonbp(f, q, g) with {
     g = ba.take(i + 1, formantGs) : pm.vocalEffort(freq, 0);
 });
 
-noiseVolume = hslider("/h:settings/v:Noise/noiseVolume", 0, 0, 20, 0.1);
+noiseVolume = hslider("/h:settings/v:Noise/noiseVolume", 0, 0, 1, 0.01);
 wnoise = no.noise : fi.lowpass(2, freq * 5);
 pnoise = no.pink_noise : fi.lowpass(2, freq * 5);
 noiseType = hslider("/h:settings/v:Noise/noiseType", 0, 0, 1, 1);
