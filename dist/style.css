@@ -10,19 +10,19 @@ body {
     position: absolute;
 }
 
-.container {
+/* .container {
     display: flex;
     width: 100%;
-    height: 100vh; /* 设置容器高度为视口高度 */
+    height: 100vh; 
 }
 
-#trapezoid-container {
+/* #trapezoid-container {
     flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100%; /* 充满整个容器高度 */
-}
+    height: 100%;
+} */ 
 
 #controls-container {
     flex: 1;
