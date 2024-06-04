@@ -59,7 +59,7 @@
   display: block;
   flex: 0 1 auto;
   text-align: center;
-  background-color: rgba(85, 118, 128, 0.25);
+  background-color: rgba(252, 160, 248, 0.953);
   margin: 5px auto auto auto;
   border-width: 0px;
   border-radius: 4px;
@@ -103,7 +103,7 @@
   display: block;
   flex: 0 1 auto;
   text-align: center;
-  background-color: rgba(168, 239, 235, 0.25);
+  background-color: rgba(124, 155, 240, 0.927);
   margin: auto 5px auto auto;
   border-width: 0px;
   border-radius: 4px;
@@ -280,7 +280,7 @@
   display: block;
   flex: 0 1 auto;
   text-align: center;
-  background-color: rgba(255, 255, 255, 0.25);
+  background-color: rgba(240, 255, 76, 0.964);
   margin: auto;
   border-width: 0px;
   border-radius: 4px;

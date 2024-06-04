@@ -10,19 +10,26 @@ body {
     position: absolute;
 }
 
-/* .container {
+.container {
     display: flex;
+    flex-direction: column;
     width: 100%;
     height: 100vh; 
 }
 
-/* #trapezoid-container {
-    flex: 1;
-    display: flex;
+trapezoid-container {
+    flex: 1 0 auto;
+    display: block;
+    position: relative;
     justify-content: center;
     align-items: center;
-    height: 100%;
-} */ 
+    height: 100%; /* 充满整个容器高度 */
+}
+
+#trapezoid {
+    position: absolute;
+    display: block;
+}
 
 #controls-container {
     flex: 1;
@@ -70,7 +77,15 @@ main span select {
 }
 
 #vowel {
-    margin: 20px auto;
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+#vowel > button {
+    display: block;
+    position: absolute;
 }
 
 #button-dsp {
