@@ -17,30 +17,34 @@ body {
     height: 100vh; 
 }
 
-trapezoid-container {
-    flex: 1 0 auto;
-    display: block;
-    position: relative;
-    justify-content: center;
-    align-items: center;
-    height: 100%; /* 充满整个容器高度 */
+.trapezoid {
+    height: 0;
+    width: 160px;
+    border-top: 200px solid #fff370;
+    border-left: 160px solid transparent;
+    border-right: 20px solid transparent; 
+    border-bottom: 0 solid transparent;
+    position: absolute;
 }
 
-#trapezoid {
+#draggable {
+    background: white;
     position: absolute;
-    display: block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
 }
 
 #controls-container {
     flex: 1;
     display: flex;
-    flex-direction: column; /* 垂直排列元素 */
+    flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
 #synthesizer-container {
-    flex: 3; /* 给合成器更多的空间 */
+    flex: 2;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -93,7 +97,7 @@ main span select {
 }
 
 #div-faust-ui {
-    flex: 1 1 auto;
+    flex: 3;
     display: flex;
     position: relative;
     flex-direction: column;
