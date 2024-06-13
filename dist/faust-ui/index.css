@@ -103,7 +103,7 @@
   display: block;
   flex: 0 1 auto;
   text-align: center;
-  background-color: rgba(124, 155, 240, 0.927);
+  background-color: rgba(254, 126, 165, 0.927);
   margin: auto 5px auto auto;
   border-width: 0px;
   border-radius: 4px;
@@ -113,6 +113,11 @@
 .faust-ui-component.faust-ui-component-hslider > .faust-ui-component-hslider-flexdiv > input::-webkit-inner-spin-button, .faust-ui-component.faust-ui-component-hslider > .faust-ui-component-hslider-flexdiv > input::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+.faust-ui-component.faust-ui-component-checkbox > div {
+  background-color: rgb(185, 73, 73) !important;
+  border-color: rgb(255, 165, 0);
+  color: rgb(255, 165, 0);
 }
 /*!*********************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/components/Nentry.scss ***!

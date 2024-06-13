@@ -243,7 +243,7 @@ const bindButtons = (faustNode, faustUI) => {
             // 应用每个参数类型
             ['bandwidth', 'freq', 'gain'].forEach(paramType => {
                 FORMANT_DATA[vowel][paramType].forEach((value, index) => {
-                    const paramName = `/tenorflow/formants/formant_${index}/formant${paramType.charAt(0).toUpperCase() + paramType.slice(1)}_${index}`;
+                    const paramName = `/tenorflow/formants/formant_${index}/${paramType.charAt(0).toUpperCase() + paramType.slice(1)}_${index}`;
                     faustNode.setParamValue(paramName, value);
                     faustUI.paramChangeByDSP(paramName, value);
                 });

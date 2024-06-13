@@ -13,16 +13,6 @@
 
 <body>
     <div class="container">
-        <div id="trapezoid-container">
-            <div id="trapezoid"></div>
-            <div id="vowel">
-                <button id="A-button">A</button>
-                <button id="I-button">I</button>
-                <button id="E-button">E</button>
-                <button id="O-button">O</button>
-                <button id="U-button">U</button>
-            </div>
-        </div>
         <div id="controls-container">
             <span id="audio-input">
                 <span>Select Audio Input Device</span>
@@ -35,14 +25,22 @@
             <span id="dsp-switch">
                 <button id="button-dsp">Activate DSP</button>
             </span>
-        </div>
+            <div class="trapezoid">
+                <div id="draggable"></div>
+                <div id="vowel">
+                    <button id="A-button">A</button>
+                    <button id="I-button">I</button>
+                    <button id="E-button">E</button>
+                    <button id="O-button">O</button>
+                    <button id="U-button">U</button>
+                </div>
+            </div>
         <div id="synthesizer-container">
             <div id="div-faust-ui"></div>
         </div>
     </div>
     <script src="./tenorflow.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
-    <!-- <script src="./trapezoid.js"></script> -->
+    <script src="./trapezoid.js"></script> 
 </body>
 
 </html>
