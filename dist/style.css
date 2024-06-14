@@ -54,6 +54,41 @@ body, html {
     order: 2; /* 确保梯形在按钮下面 */
 }
 
+#U-button {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    z-index: 10;
+}
+
+#A-button {
+    position: absolute;
+    bottom: -429px;
+    right: 37px;
+    z-index: 10;
+}
+
+#I-button {
+    position: absolute;
+    bottom: 0px;
+    right: 670px;
+    z-index: 10;
+}
+
+#E-button {
+    position: absolute;
+    bottom: -250px;
+    right: 494px;
+    z-index: 10;
+}
+
+#O-button {
+    position: absolute;
+    bottom: -210px;
+    right: 13px;
+    z-index: 10;
+}
+
 #synthesizer-container {
     align-self: center; /* 中心对齐 */
 }
