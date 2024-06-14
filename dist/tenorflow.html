@@ -13,7 +13,7 @@
 
 <body>
     <div class="container">
-        <div id="controls-container">
+        <div class="top-bar">
             <span id="audio-input">
                 <span>Select Audio Input Device</span>
                 <select id="select-audio-input"></select>
@@ -25,8 +25,9 @@
             <span id="dsp-switch">
                 <button id="button-dsp">Activate DSP</button>
             </span>
-            <div class="trapezoid">
-                <div id="draggable"></div>
+        </div>
+        <div class="content-area">
+            <div class="left-panel">
                 <div id="vowel">
                     <button id="A-button">A</button>
                     <button id="I-button">I</button>
@@ -34,13 +35,18 @@
                     <button id="O-button">O</button>
                     <button id="U-button">U</button>
                 </div>
+                <div class="trapezoid"></div>  
+                </div>
+            <div class="right-panel">
+                <div id="synthesizer-container">
+                    <div id="div-faust-ui"></div>
+                </div>
             </div>
-        <div id="synthesizer-container">
-            <div id="div-faust-ui"></div>
         </div>
     </div>
     <script src="./tenorflow.js"></script>
-    <script src="./trapezoid.js"></script> 
+    <script src="./trapezoid.js"></script>    
 </body>
 
 </html>
+

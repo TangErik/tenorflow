@@ -1,104 +1,77 @@
-body {
-    color: rgb(255, 255, 255);
-    background-color: #91d4ea;
-    display: flex;
-    top: 0;
-    left: 0;
-    width: 100%;
+body, html {
     height: 100%;
     margin: 0;
-    position: absolute;
+    padding: 0;
+    font-family: Arial, sans-serif;
 }
 
 .container {
     display: flex;
     flex-direction: column;
+    height: 100%;
+}
+
+.top-bar {
+    background-color: #91d4ea;
+    padding: 10px;
+    display: flex;
+    justify-content: center; /* 水平居中 */
+    align-items: center; /* 垂直居中 */
+    flex-wrap: wrap; /* 允许内容换行 */
+    flex-direction: column;
+}
+
+.content-area {
+    display: flex;
+    flex: 1;
+}
+
+.left-panel, .right-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 水平居中对齐 */
+    justify-content: center; /* 垂直居中对齐 */
     width: 100%;
-    height: 100vh; 
+    max-width: 700px; /* 或者根据实际情况调整 */
+}
+
+.left-panel {
+    background-color: #91d4ea;
+}
+
+.right-panel {
+    background-color: #91d4ea;
 }
 
 .trapezoid {
     height: 0;
-    width: 160px;
-    border-top: 200px solid #fff370;
-    border-left: 160px solid transparent;
-    border-right: 20px solid transparent; 
-    border-bottom: 0 solid transparent;
-    position: absolute;
-}
-
-#draggable {
-    background: white;
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-}
-
-#controls-container {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    width: 280px;
+    border-top: 400px solid #fff370; /* 梯形顶部的颜色和高度 */
+    border-left: 320px solid transparent; /* 梯形左边的斜边 */
+    border-right: 40px solid transparent; /* 梯形右边的斜边 */
+    border-bottom: 0 solid transparent; /* 无底边 */
+    position: relative;
+    order: 2; /* 确保梯形在按钮下面 */
 }
 
 #synthesizer-container {
-    flex: 2;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-main {
-    margin: 20px;
-    display: flex;
-    flex-direction: column;
-    flex: 1 1 100%;
-}
-
-main span {
-    position: relative;
-    display: flex;
-}
-
-main span[hidden] {
-    display: none;
-}
-
-main span span {
-    margin: 0px 10px;
-    flex: 1;
-}
-
-main span select {
-    flex: 2;
-}
-
-#dsp-switch {
-    margin: 20px auto;
-}
-
-#vowel {
-    display: block;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-}
-
-#vowel > button {
-    display: block;
-    position: absolute;
-}
-
-#button-dsp {
-    padding: 10px;
+    align-self: center; /* 中心对齐 */
 }
 
 #div-faust-ui {
-    flex: 3;
+    position: relative;
+}
+
+#vowel {
     display: flex;
     position: relative;
-    flex-direction: column;
+    justify-content: space-around; /* 平均分布按钮 */
+    width: 100%; /* 按钮区域宽度与合成器匹配 */
+    order: 1; /* 按钮在顶部 */
 }
+
+#vowel > button {
+    padding: 5px 10px; /* 按钮内边距 */
+}
+
+
