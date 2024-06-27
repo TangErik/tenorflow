@@ -9,88 +9,69 @@ body, html {
     display: flex;
     flex-direction: column;
     height: 100%;
+    background-color: #91d4ea;
 }
 
 .top-bar {
     background-color: #91d4ea;
     padding: 10px;
     display: flex;
-    justify-content: center; /* 水平居中 */
-    align-items: center; /* 垂直居中 */
-    flex-wrap: wrap; /* 允许内容换行 */
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
     flex-direction: column;
-}
-
-.content-area {
-    display: flex;
-    flex: 1;
-}
-
-.left-panel, .right-panel {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* 水平居中对齐 */
-    justify-content: center; /* 垂直居中对齐 */
-    width: 100%;
-    max-width: 700px; /* 或者根据实际情况调整 */
-}
-
-.left-panel {
-    background-color: #91d4ea;
-}
-
-.right-panel {
-    background-color: #91d4ea;
 }
 
 .trapezoid {
-    height: 0;
-    width: 280px;
-    border-top: 400px solid #fff370; /* 梯形顶部的颜色和高度 */
-    border-left: 320px solid transparent; /* 梯形左边的斜边 */
-    border-right: 40px solid transparent; /* 梯形右边的斜边 */
-    border-bottom: 0 solid transparent; /* 无底边 */
+    justify-content: center;
+    align-items: center;
+    width: 210px;
+    border-top: 300px solid #fff370;
+    border-left: 240px solid transparent;
+    border-right: 30px solid transparent; 
     position: relative;
-    order: 2; /* 确保梯形在按钮下面 */
+    order: 2; 
+    top: 570px; 
+    left: 630px;
 }
 
 #U-button {
     position: absolute;
-    bottom: 0px;
-    right: 0px;
+    bottom: -570px;
+    right: 585px;
     z-index: 10;
 }
 
 #A-button {
     position: absolute;
-    bottom: -429px;
-    right: 37px;
+    bottom: -895px;
+    right: 615px;
     z-index: 10;
 }
 
 #I-button {
     position: absolute;
-    bottom: 0px;
-    right: 670px;
+    bottom: -570px;
+    right: 1100px;
     z-index: 10;
 }
 
 #E-button {
     position: absolute;
-    bottom: -250px;
-    right: 494px;
+    bottom: -700px;
+    right: 1020px;
     z-index: 10;
 }
 
 #O-button {
     position: absolute;
-    bottom: -210px;
-    right: 13px;
+    bottom: -700px;
+    right: 593px;
     z-index: 10;
 }
 
 #synthesizer-container {
-    align-self: center; /* 中心对齐 */
+    position: static;
 }
 
 #div-faust-ui {
@@ -100,13 +81,13 @@ body, html {
 #vowel {
     display: flex;
     position: relative;
-    justify-content: space-around; /* 平均分布按钮 */
-    width: 100%; /* 按钮区域宽度与合成器匹配 */
-    order: 1; /* 按钮在顶部 */
+    justify-content: space-around; 
+    width: 100%; 
+    order: 1;
 }
 
 #vowel > button {
-    padding: 5px 10px; /* 按钮内边距 */
+    padding: 5px 10px;
 }
 
 
