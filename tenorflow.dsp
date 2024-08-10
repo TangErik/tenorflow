@@ -20,5 +20,6 @@ freq = hslider("/h:settings/v:Voice/Frequency", 100, 20, 600, 0.1) + vibrato_eff
 gain = hslider("/h:settings/v:Voice/Gain", 0, 0, 1, 0.01);
 gate = checkbox("Gate");
 vibrato = checkbox("Vibrato");
+pulsetrainDutyCircle = hslider("pulsetrainDutyCircle", 0, 0, 1, 0.01);
 
-process = os.pulsetrain(freq, 0.99) + selectedNoise * noiseVolume <: formantFilterbank :> fi.lowpass(2, freq * 5) * gain * gate;
+process = os.pulsetrain(freq, pulsetrainDutyCircle) + selectedNoise * noiseVolume <: formantFilterbank :> fi.lowpass(2, freq * 5) * gain * gate;

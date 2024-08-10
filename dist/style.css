@@ -9,11 +9,13 @@ body, html {
     display: flex;
     flex-direction: column;
     height: 100%;
-    background-color: #91d4ea;
+    background: rgb(80, 167, 255);
+    background: radial-gradient(circle, rgba(80, 167, 255,1) 0%, rgba(70,243,252,1) 100%);
 }
 
 .top-bar {
-    background-color: #91d4ea;
+    background: rgb(80, 182, 255);
+    background: radial-gradient(circle, rgba(80, 182, 255) 0%, rgba(70,243,252,1) 100%);
     padding: 10px;
     display: flex;
     justify-content: center;
@@ -26,7 +28,7 @@ body, html {
     justify-content: center;
     align-items: center;
     width: 210px;
-    border-top: 300px solid #fff370;
+    border-top: 300px solid #F1F7B5;
     border-left: 240px solid transparent;
     border-right: 30px solid transparent; 
     position: relative;
