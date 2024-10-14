@@ -16,10 +16,9 @@ noiseType = hslider("/h:settings/v:Noise/noiseType", 0, 0, 1, 1);
 selectedNoise = select2(noiseType, wnoise, pnoise);
 vibrato_freq = (4 + 4 * no.noise) : si.smoo;
 vibrato_effect = os.osc(vibrato_freq) * 0.7 * vibrato;
-freq = hslider("/h:settings/v:Voice/Frequency", 100, 20, 600, 0.1) + vibrato_effect + no.noise * 0.9 : si.smoo;
-gain = hslider("/h:settings/v:Voice/Gain", 0, 0, 1, 0.01);
-gate = checkbox("Gate");
+freq = hslider("/h:settings/v:Voice/freq", 100, 20, 600, 0.1) + vibrato_effect + no.noise * 0.9 : si.smoo;
+gain = hslider("/h:settings/v:Voice/gain", 0, 0, 1, 0.01);
+gate = checkbox("gate");
 vibrato = checkbox("Vibrato");
-pulsetrainDutyCircle = hslider("pulsetrainDutyCircle", 0, 0, 1, 0.01);
 
-process = os.pulsetrain(freq, pulsetrainDutyCircle) + selectedNoise * noiseVolume <: formantFilterbank :> fi.lowpass(2, freq * 5) * gain * gate;
+process = os.pulsetrain(freq, 0.99) + selectedNoise * noiseVolume <: formantFilterbank :> fi.lowpass(2, freq * 5) * gain * gate;
