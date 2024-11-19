@@ -1,7 +1,8 @@
 import("stdfaust.lib");
 
-formantFs = par(i, 5, hslider("/h:formants/v:formant_%i/Freq_%i[style:knob]", 100, 0, 4000, 100));
-formantBWs = par(i, 5, hslider("/h:formants/v:formant_%i/Bandwidth_%i[style:knob]", 10, 0, 200, 10));
+// FormantsBank
+formantFs = par(i, 5, hslider("/h:formants/v:formant_%i/Freq_%i[style:knob]", 100, 0, 4000, 1));
+formantBWs = par(i, 5, hslider("/h:formants/v:formant_%i/Bandwidth_%i[style:knob]", 10, 0, 200, 1));
 formantGs = par(i, 5, hslider("/h:formants/v:formant_%i/Gain_%i[style:knob]", 0, 0, 1, 0.01));
 formantFilterbank = par(i, 5, fi.resonbp(f, q, g) with {
     f = ba.take(i + 1, formantFs) : pm.autobendFreq(i, freq, 4);
@@ -9,16 +10,32 @@ formantFilterbank = par(i, 5, fi.resonbp(f, q, g) with {
     g = ba.take(i + 1, formantGs) : pm.vocalEffort(freq, 0);
 });
 
-noiseVolume = hslider("/h:settings/v:Noise/noiseVolume", 0, 0, 1, 0.01);
+// Breath
 wnoise = no.noise : fi.lowpass(2, freq * 5);
 pnoise = no.pink_noise : fi.lowpass(2, freq * 5);
-noiseType = hslider("/h:settings/v:Noise/noiseType", 0, 0, 1, 1);
-selectedNoise = select2(noiseType, wnoise, pnoise);
-vibrato_freq = (4 + 4 * no.noise) : si.smoo;
-vibrato_effect = os.osc(vibrato_freq) * 0.7 * vibrato;
-freq = hslider("/h:settings/v:Voice/freq", 100, 20, 600, 0.1) + vibrato_effect + no.noise * 0.9 : si.smoo;
-gain = hslider("/h:settings/v:Voice/gain", 0, 0, 1, 0.01);
-gate = checkbox("gate");
-vibrato = checkbox("Vibrato");
+breathType = hslider("/h:settings/v:Noise/breathType", 0, 0, 1, 1);
+selectedBreath = select2(breathType, wnoise, pnoise);
+breathVolume = hslider("/h:settings/v:Noise/breathVolume", 0, 0, 1, 0.01);
 
-process = os.pulsetrain(freq, 0.99) + selectedNoise * noiseVolume <: formantFilterbank :> fi.lowpass(2, freq * 5) * gain * gate;
+// Vibrato
+vibrato_base_freq = hslider("/v:2/h:vibrato/VibratoFreq[style:knob]", 4, 2, 6, 0.1);
+vibrato_depth = hslider("/v:2/h:vibrato/VibratoDepth[style:knob]", 0.7, 0, 1.5, 0.1);
+vibrato_freq = (vibrato_base_freq + 4 * no.noise) : si.smoo;
+vibrato = checkbox("/v:1/[1]Vibrato");
+vibrato_effect = os.osc(vibrato_freq + no.noise * 0.1) * vibrato_depth * vibrato;
+vibrato_jitter = hslider("/v:2/h:vibrato/VibratoJitter[style:knob]", 0.9, 0, 1, 0.1);
+freq = hslider("/h:settings/v:Voice/freq", 100, 20, 600, 0.1) + vibrato_effect + no.noise * vibrato_jitter : si.smoo;
+
+// Envelop
+a = hslider("/v:2/h:envelop/[0]attack[style:knob]", 0, 0, 1, 0.01);
+d = hslider("/v:2/h:envelop/[1]decay[style:knob]", 0, 0, 1, 0.01);
+s = hslider("/v:2/h:envelop/[2]sustain[style:knob]", 0, 0, 1, 0.01);
+r = hslider("/v:2/h:envelop/[3]release[style:knob]", 0, 0, 5, 0.01);
+t = button("/v:1/[2]trigger");
+envelop = en.adsr(a, d, s, r, t);
+
+// Settings
+gain = hslider("/h:settings/v:Voice/gain", 0, 0, 1, 0.01);
+gate = checkbox("/v:1/[0]gate");
+
+process = os.pulsetrain(freq, 0.99) + selectedBreath * breathVolume <: formantFilterbank :> fi.lowpass(2, freq * 5) * gain * envelop * gate;

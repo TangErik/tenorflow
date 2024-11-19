@@ -119,6 +119,11 @@
   border-color: rgb(255, 165, 0);
   color: rgb(255, 165, 0);
 }
+.faust-ui-component.faust-ui-component-button > div {
+  background-color: rgb(185, 73, 73) !important;
+  border-color: rgb(255, 165, 0);
+  color: rgb(255, 165, 0);
+}
 /*!*********************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/components/Nentry.scss ***!
   \*********************************************************************************************************************/
@@ -205,7 +210,7 @@
   display: block;
   flex: 0 1 auto;
   text-align: center;
-  background-color: rgba(255, 255, 255, 0.25);
+  background-color: rgba(205, 0, 0, 0.25);
   margin: 0px;
   border-width: 0px;
   border-radius: 4px;

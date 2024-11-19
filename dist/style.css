@@ -33,42 +33,49 @@ body, html {
     border-right: 30px solid transparent; 
     position: relative;
     order: 2; 
-    top: 570px; 
-    left: 630px;
+    top: 200px; 
+    left: 1170px; /* 原来是630px，增加300px */
 }
 
 #U-button {
     position: absolute;
-    bottom: -570px;
-    right: 585px;
+    bottom: -198px;
+    right: 46px; /* 原来是585px，减少300px */
     z-index: 10;
 }
 
 #A-button {
     position: absolute;
-    bottom: -895px;
-    right: 615px;
+    bottom: -529px;
+    right: 72px; /* 原来是615px，减少300px */
     z-index: 10;
 }
 
 #I-button {
     position: absolute;
-    bottom: -570px;
-    right: 1100px;
+    bottom: -200px;
+    right: 560px; /* 原来是1100px，减少300px */
     z-index: 10;
 }
 
 #E-button {
     position: absolute;
-    bottom: -700px;
-    right: 1020px;
+    bottom: -380px;
+    right: 440px; /* 原来是1020px，减少300px */
     z-index: 10;
 }
 
 #O-button {
     position: absolute;
-    bottom: -700px;
-    right: 593px;
+    bottom: -355px;
+    right: 55px; /* 原来是593px，减少300px */
+    z-index: 10;
+}
+
+#AA-button {
+    position: absolute;
+    bottom: -530px;
+    right: 320px; /* 原来是860px，减少300px */
     z-index: 10;
 }
 

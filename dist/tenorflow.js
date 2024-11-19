@@ -210,26 +210,31 @@ const FORMANT_DATA = {
         bandwidth: [50, 90, 120, 130, 140],
         gain: [1, 0.5, 0.44, 0.39, 0.07]
     },
-    E: {
-        freq: [400, 1700, 2600, 3200, 3580],
-        bandwidth: [70, 80, 100, 120, 120],
-        gain: [1, 0.2, 0.25, 0.2, 0.1]
+    AA:{
+        freq: [900, 1300, 2500, 2700, 3250],
+        bandwidth: [50, 90, 120, 130, 140],
+        gain: [1, 0.5, 0.44, 0.39, 0.07]
+    },
+    U: {
+        freq: [400, 500, 2700, 2900, 3300],
+        bandwidth: [40, 60, 100, 120, 120],
+        gain: [1, 0.1, 0.14, 0.19, 0.05]
     },
     I: {
-        freq: [290, 1870, 2800, 3250, 3540],
+        freq: [180, 2340, 2900, 3250, 3540],
         bandwidth: [40, 90, 100, 120, 120],
         gain: [1, 0.17, 0.12, 0.1, 0.03]
     },
+    E: {
+        freq: [600, 2000, 2600, 3200, 3580],
+        bandwidth: [70, 80, 100, 120, 120],
+        gain: [1, 0.2, 0.25, 0.2, 0.1]
+    },
     O: {
-        freq: [400, 800, 2600, 2800, 3000],
+        freq: [600, 900, 2600, 2800, 3000],
         bandwidth: [70, 80, 100, 130, 135],
         gain: [1, 0.31, 0.25, 0.25, 0.05]
     },
-    U: {
-        freq: [350, 600, 2700, 2900, 3300],
-        bandwidth: [40, 60, 100, 120, 120],
-        gain: [1, 0.1, 0.14, 0.19, 0.05]
-    }
 };
 
 /**
@@ -237,7 +242,7 @@ const FORMANT_DATA = {
  * @param {import("@shren/faust-ui").FaustUI} faustUI
  **/
 const bindButtons = (faustNode, faustUI) => {
-    ['A', 'E', 'I', 'O', 'U'].forEach(vowel => {
+    ['A', 'AA', 'E', 'I', 'O', 'U'].forEach(vowel => {
         document.getElementById(vowel + '-button').addEventListener('click', () => {
             ['bandwidth', 'freq', 'gain'].forEach(paramType => {
                 FORMANT_DATA[vowel][paramType].forEach((value, index) => {
@@ -248,7 +253,33 @@ const bindButtons = (faustNode, faustUI) => {
             });
         });
     });
+    // 监听键盘按下事件
+    document.addEventListener('keydown', (event) => {
+        if (event.code === 'Space') { // 检测左 Shift 键
+            event.preventDefault(); // 防止页面产生默认行为
+            const paramName = "/tenorflow/1/trigger";
+            const value = 1;
+            faustNode.setParamValue(paramName, value);
+            faustUI.paramChangeByDSP(paramName, value);
+        }
+    });
+    
+    // 监听键盘松开事件
+    document.addEventListener('keyup', (event) => {
+        if (event.code === 'Space') { // 检测左 Shift 键
+            event.preventDefault(); // 防止页面产生默认行为
+            const paramName = "/tenorflow/1/trigger";
+            const value = 0;
+            faustNode.setParamValue(paramName, value);
+            faustUI.paramChangeByDSP(paramName, value);
+        }
+    });
 };
+
+// 获取按钮元素
+// const button = document.getElementById('tenorflow/1/t');
+
+
 /*
 const buttonsPosition = {
     A: [400, 400],
