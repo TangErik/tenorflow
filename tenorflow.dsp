@@ -37,5 +37,6 @@ envelop = en.adsr(a, d, s, r, t);
 // Settings
 gain = hslider("/h:settings/v:Voice/gain", 0, 0, 1, 0.01);
 gate = checkbox("/v:1/[0]gate");
+wave = os.pulsetrain(freq, 0.99);
 
-process = os.pulsetrain(freq, 0.99) + selectedBreath * breathVolume <: formantFilterbank :> fi.lowpass(2, freq * 5) * gain * envelop * gate;
+process = wave + selectedBreath * breathVolume <: formantFilterbank :> fi.lowpass(2, freq * 5) * gain * envelop * gate;
