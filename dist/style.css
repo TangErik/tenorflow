@@ -27,56 +27,62 @@ body, html {
 .trapezoid {
     justify-content: center;
     align-items: center;
-    width: 210px;
-    border-top: 300px solid #F1F7B5;
-    border-left: 240px solid transparent;
-    border-right: 30px solid transparent; 
+    width: 420px; /* 原宽度210px，增加一倍 */
+    border-top: 600px solid #F1F7B5; /* 原高度300px，增加一倍 */
+    border-left: 480px solid transparent; /* 原左边透明宽度240px，增加一倍 */
+    border-right: 60px solid transparent; /* 原右边透明宽度30px，增加一倍 */
     position: relative;
     order: 2; 
-    top: 200px; 
-    left: 1170px; /* 原来是630px，增加300px */
+    top: 120px; 
+    left: 670px; /* 原左偏移1170px，左移200px，即1170px - 200px */
 }
 
 #U-button {
     position: absolute;
-    bottom: -198px;
-    right: 46px; /* 原来是585px，减少300px */
+    bottom: 595px; /* 上移后的值 */
+    right: -115px; /* 545px - 600px */
     z-index: 10;
+    transform: scale(2); /* 放大一倍 */
 }
 
 #A-button {
     position: absolute;
-    bottom: -529px;
-    right: 72px; /* 原来是615px，减少300px */
+    bottom: -50px; /* 上移后的值 */
+    right: -55px; /* 608px - 600px */
     z-index: 10;
+    transform: scale(2); /* 放大一倍 */
 }
 
 #I-button {
     position: absolute;
-    bottom: -200px;
-    right: 560px; /* 原来是1100px，减少300px */
+    bottom: 600px; /* 上移后的值 */
+    right: 905px; /* 1575px - 600px */
     z-index: 10;
+    transform: scale(2); /* 放大一倍 */
 }
 
 #E-button {
     position: absolute;
-    bottom: -380px;
-    right: 440px; /* 原来是1020px，减少300px */
+    bottom: 355px; /* 上移后的值 */
+    right: 740px; /* 1420px - 600px */
     z-index: 10;
+    transform: scale(2); /* 放大一倍 */
 }
 
 #O-button {
     position: absolute;
-    bottom: -355px;
-    right: 55px; /* 原来是593px，减少300px */
+    bottom: 356px; /* 上移后的值 */
+    right: -100px; /* 565px - 600px */
     z-index: 10;
+    transform: scale(2); /* 放大一倍 */
 }
 
 #AA-button {
     position: absolute;
-    bottom: -530px;
-    right: 320px; /* 原来是860px，减少300px */
+    bottom: -50px; /* 上移后的值 */
+    right: 410px; /* 1100px - 600px */
     z-index: 10;
+    transform: scale(2); /* 放大一倍 */
 }
 
 #synthesizer-container {
@@ -84,7 +90,83 @@ body, html {
 }
 
 #div-faust-ui {
-    position: relative;
+    position: relative; /* 保持相对定位 */
+    left: -550px; /* 向右偏移10px */
+    top: 5px; /* 向下偏移5px */
+}
+
+.line {
+    position: absolute;
+    background-color: black; /* 线条颜色 */
+    height: 2px; /* 线条宽度 */
+}
+
+.diagonal1 {
+    width: 640px; /* 调整线条长度 */
+    transform: rotate(70deg); /* 控制第一条斜线的角度 */
+    top: -300px; /* 调整位置 */
+    left: -220px;
+}
+
+.horizontal1 {
+    width: 780px; /* 第一条横线的长度 */
+    top: -400px; /* 调整到合适的高度 */
+    left: -320px;
+}
+
+.horizontal2 {
+    width: 602px; /* 第二条横线的长度 */
+    top: -200px;
+    left: -160px;
+}
+
+.text-boxes {
+    position: relative; /* 确保内部文本框可以用绝对定位 */
+}
+
+.text-box {
+    position: absolute;
+    padding: 15px 25px; /* 增加内边距，提升舒适感 */
+    background-color: rgba(255, 255, 255, 0.9); /* 更透明的背景 */
+    border: none; /* 去掉边框 */
+    border-radius: 10px; /* 更大的圆角，显得更加现代 */
+    font-size: 20px; /* 字体比原先大两号（16px → 20px） */
+    font-family: "Arial", "Helvetica", sans-serif; /* 使用干净的无衬线字体 */
+    font-weight: bold; /* 粗体文字，让文本更醒目 */
+    color: #333; /* 使用深灰色代替纯黑色，显得柔和 */
+    text-align: center; /* 文本居中 */
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2); /* 更大的阴影，显得更立体 */
+    letter-spacing: 1px; /* 增加字体间距，让文字更通透 */
+    text-transform: uppercase; /* 全部大写，显得更有设计感 */
+    transition: all 0.3s ease; /* 添加动画效果，交互更流畅 */
+}
+
+/* 鼠标悬停效果 */
+.text-box:hover {
+    background-color: rgba(255, 255, 255, 1); /* 背景完全不透明 */
+    transform: scale(1.05); /* 略微放大，增强互动感 */
+    box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.3); /* 阴影增强 */
+}
+
+/* 单独定位每个文本框 */
+#text1 {
+    top: -653px;
+    left: -485px;
+}
+
+#text2 {
+    top: -452px;
+    left: -326px;
+}
+
+#text3 {
+    top: -252px;
+    left: -165px;
+}
+
+#text4 {
+    top: -52px;
+    left: -2px;
 }
 
 #vowel {
@@ -96,7 +178,39 @@ body, html {
 }
 
 #vowel > button {
-    padding: 5px 10px;
+    padding: 10px 20px; /* 按钮的初始内边距 */
+    font-size: 24px; /* 初始字体大小 */
+    font-family: "Poppins", "Arial", sans-serif; /* 现代无衬线字体 */
+    font-weight: 600; /* 字体稍加粗 */
+    color: #fff; /* 白色文字 */
+    background: linear-gradient(90deg, #70b1f6, #7dbafc); /* 蓝色渐变背景 */
+    border: 2px solid #bbdbfd; /* 初始边框颜色 */
+    border-radius: 12px; /* 中等圆角设计 */
+    cursor: pointer; /* 鼠标变为手型 */
+    transform: scale(0.9); /* 默认较小 */
+    transition: all 0.3s ease-in-out; /* 平滑动画 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 初始轻微阴影 */
+}
+
+/* 鼠标悬停效果 */
+#vowel > button:hover {
+    transform: scale(1.5); /* 悬停时恢复为正常大小 */
+    background: linear-gradient(90deg, #3697ff, #66b2ff); /* 渐变变浅 */
+    border-color: #73b2f5; /* 悬停时边框变亮 */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* 增强阴影 */
+}
+
+/* 鼠标按下效果 */
+#vowel > button:active {
+    transform: scale(0.95); /* 按下时略微缩小 */
+    background: linear-gradient(90deg, #67c2ff, #007bff); /* 按下背景加深 */
+    box-shadow: 0 3px 6px rgba(255, 221, 221, 0.2); /* 减弱阴影 */
+}
+
+/* 聚焦效果 */
+#vowel > button:focus {
+    outline: none; /* 去掉默认的聚焦框 */
+    box-shadow: 0 0 10px 3px rgba(147, 199, 255, 0.7); /* 添加蓝色光晕 */
 }
 
 

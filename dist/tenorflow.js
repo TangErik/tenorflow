@@ -1,4 +1,5 @@
 let faustNode = null;  // 在全局作用域定义 faustNode
+let currentParams = [];
 
 /**
  * @typedef {import("./types").FaustDspDistribution} FaustDspDistribution
@@ -212,7 +213,7 @@ const FORMANT_DATA = {
     },
     AA:{
         freq: [900, 1300, 2500, 2700, 3250],
-        bandwidth: [50, 90, 120, 130, 140],
+        bandwidth: [150, 150, 120, 130, 140],
         gain: [1, 0.5, 0.44, 0.39, 0.07]
     },
     U: {
@@ -244,13 +245,30 @@ const FORMANT_DATA = {
 const bindButtons = (faustNode, faustUI) => {
     ['A', 'AA', 'E', 'I', 'O', 'U'].forEach(vowel => {
         document.getElementById(vowel + '-button').addEventListener('click', () => {
-            ['bandwidth', 'freq', 'gain'].forEach(paramType => {
-                FORMANT_DATA[vowel][paramType].forEach((value, index) => {
-                    const paramName = `/tenorflow/formants/formant_${index}/${paramType.charAt(0).toUpperCase() + paramType.slice(1)}_${index}`;
-                    faustNode.setParamValue(paramName, value);
-                    faustUI.paramChangeByDSP(paramName, value);
+            if (currentParams.length) {
+                const previousParams = [...currentParams];
+                const targetParams = [...FORMANT_DATA[vowel].freq, ...FORMANT_DATA[vowel].bandwidth, ...FORMANT_DATA[vowel].gain];
+                ['bandwidth', 'freq', 'gain'].forEach(paramType => {
+                    FORMANT_DATA[vowel][paramType].forEach((value, index) => {
+                        const paramName = `/tenorflow/formants/formant_${index}/${paramType.charAt(0).toUpperCase() + paramType.slice(1)}_${index}`;
+                        faustNode.parameters.get(paramName).cancelAndHoldAtTime(audioContext.currentTime);
+                        faustNode.parameters.get(paramName).value = faustNode.parameters.get(paramName).value;
+                        faustNode.parameters.get(paramName).linearRampToValueAtTime(value, audioContext.currentTime + 1);
+                        // faustNode.setParamValue(paramName, value);
+                        // faustUI.paramChangeByDSP(paramName, value);
+                    });
                 });
-            });
+            } else {
+                currentParams = [...FORMANT_DATA[vowel].freq, ...FORMANT_DATA[vowel].bandwidth, ...FORMANT_DATA[vowel].gain];
+                ['bandwidth', 'freq', 'gain'].forEach(paramType => {
+                    FORMANT_DATA[vowel][paramType].forEach((value, index) => {
+                        const paramName = `/tenorflow/formants/formant_${index}/${paramType.charAt(0).toUpperCase() + paramType.slice(1)}_${index}`;
+                        faustNode.parameters.get(paramName).linearRampToValueAtTime(value, audioContext.currentTime);
+                        // faustNode.setParamValue(paramName, value);
+                        // faustUI.paramChangeByDSP(paramName, value);
+                    });
+                });
+            }
         });
     });
     // 监听键盘按下事件
