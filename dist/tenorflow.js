@@ -206,36 +206,131 @@ const createFaustUI = async (faustNode) => {
 };
 
 const FORMANT_DATA = {
-    A: {
-        freq: [650, 1080, 2650, 2900, 3250],
-        bandwidth: [50, 90, 120, 130, 140],
-        gain: [1, 0.5, 0.44, 0.39, 0.07]
+    i: {
+        freq: [240, 2400, 3300],
+        bandwidth: [60, 90, 120,],
+        gain: [1, 0.5, 0.3]
     },
-    AA:{
-        freq: [900, 1300, 2500, 2700, 3250],
-        bandwidth: [150, 150, 120, 130, 140],
-        gain: [1, 0.5, 0.44, 0.39, 0.07]
+    y: {
+        freq: [240, 2000, 2500],
+        bandwidth: [60, 80, 120],
+        gain: [1, 0.4, 0.3]
     },
-    U: {
-        freq: [400, 500, 2700, 2900, 3300],
-        bandwidth: [40, 60, 100, 120, 120],
-        gain: [1, 0.1, 0.14, 0.19, 0.05]
+    ɨ: {
+        freq: [300, 1700, 2400],
+        bandwidth: [70, 80, 120],
+        gain: [1, 0.4, 0.2]
     },
-    I: {
-        freq: [180, 2340, 2900, 3250, 3540],
-        bandwidth: [40, 90, 100, 120, 120],
-        gain: [1, 0.17, 0.12, 0.1, 0.03]
+    ʉ: {
+        freq: [325, 1700, 2300],
+        bandwidth: [70, 90, 120],
+        gain: [1, 0.3, 0.2]
     },
-    E: {
-        freq: [600, 2000, 2600, 3200, 3580],
-        bandwidth: [70, 80, 100, 120, 120],
-        gain: [1, 0.2, 0.25, 0.2, 0.1]
+    w: {
+        freq: [370, 1300, 2500],
+        bandwidth: [80, 100, 120],
+        gain: [1, 0.4, 0.3]
     },
-    O: {
-        freq: [600, 900, 2600, 2800, 3000],
-        bandwidth: [70, 80, 100, 130, 135],
-        gain: [1, 0.31, 0.25, 0.25, 0.05]
+    u: {
+        freq: [370, 1300, 2500],
+        bandwidth: [80, 100, 120],
+        gain: [1, 0.4, 0.3]
     },
+    e: {
+        freq: [400, 2300, 3000],
+        bandwidth: [70, 90, 120],
+        gain: [1, 0.5, 0.3]
+    },
+    ø: {
+        freq: [400, 2000, 2500],
+        bandwidth: [70, 90, 120],
+        gain: [1, 0.4, 0.3]
+    },
+    ɘ: {
+        freq: [450, 1750, 2400],
+        bandwidth: [70, 90, 120],
+        gain: [1, 0.3, 0.2]
+    },
+    ɵ: {
+        freq: [450, 1500, 2300],
+        bandwidth: [80, 100, 120],
+        gain: [1, 0.3, 0.2]
+    },
+    ɤ: {
+        freq: [550, 1200, 2500],
+        bandwidth: [90, 110, 120],
+        gain: [1, 0.3, 0.2]
+    },
+    o: {
+        freq: [550, 1200, 2500],
+        bandwidth: [90, 110, 120],
+        gain: [1, 0.3, 0.2]
+    },
+    ə: {
+        freq: [500, 1500, 2500],
+        bandwidth: [80, 100, 120],
+        gain: [1, 0.4, 0.3]
+    },
+    ɛ: {
+        freq: [550, 1850, 2500],
+        bandwidth: [80, 100, 120],
+        gain: [1, 0.5, 0.3]
+    },
+    œ: {
+        freq: [550, 1500, 2500],
+        bandwidth: [90, 110, 120],
+        gain: [1, 0.4, 0.3]
+    },
+    ɜ: {
+        freq: [600, 1600, 2500],
+        bandwidth: [80, 100, 120],
+        gain: [1, 0.5, 0.3]
+    },
+    ɞ: {
+        freq: [600, 1400, 2500],
+        bandwidth: [80, 100, 120],
+        gain: [1, 0.4, 0.3]
+    },
+    ʌ: {
+        freq: [600, 1200, 2500],
+        bandwidth: [80, 100, 120],
+        gain: [1, 0.4, 0.3]
+    },
+    ɔ: {
+        freq: [600, 1000, 2500],
+        bandwidth: [90, 110, 120],
+        gain: [1, 0.4, 0.3]
+    },
+    æ: {
+        freq: [700, 1700, 2500],
+        bandwidth: [100, 120, 140],
+        gain: [1, 0.4, 0.3]
+    },
+    ɐ: {
+        freq: [750, 1300, 2500],
+        bandwidth: [100, 120, 140],
+        gain: [1, 0.3, 0.2]
+    },
+    aa: {
+        freq: [800, 1600, 2500],
+        bandwidth: [110, 130, 150],
+        gain: [1, 0.5, 0.3]
+    },
+    ɶ: {
+        freq: [800, 1400, 2500],
+        bandwidth: [110, 130, 150],
+        gain: [1, 0.4, 0.3]
+    },
+    a: {
+        freq: [850, 1200, 2500],
+        bandwidth: [110, 130, 150],
+        gain: [1, 0.3, 0.2]
+    },
+    ɒ: {
+        freq: [850, 1000, 2500],
+        bandwidth: [110, 130, 150],
+        gain: [1, 0.3, 0.2]
+    }
 };
 
 /**
@@ -243,7 +338,11 @@ const FORMANT_DATA = {
  * @param {import("@shren/faust-ui").FaustUI} faustUI
  **/
 const bindButtons = (faustNode, faustUI) => {
-    ['A', 'AA', 'E', 'I', 'O', 'U'].forEach(vowel => {
+    ['i', 'y', 'ɨ', 'ʉ', 'w', 'u', 
+     'e', 'ø', 'ɘ', 'ɵ', 'ɤ', 'o', 
+     'ə', 'ɛ', 'œ', 'ɜ', 'ɞ', 'ʌ', 
+     'ɔ', 'æ', 'ɐ', 'aa', 'ɶ', 'a', 
+     'ɒ'].forEach(vowel => {
         document.getElementById(vowel + '-button').addEventListener('click', () => {
             if (currentParams.length) {
                 const previousParams = [...currentParams];
@@ -327,7 +426,7 @@ const handleMousemove = (e) => {
     const sum = factor.reduce((sum, cur) => sum + cur, 0);
     const weights = factor.map(x => x / sum);
     ['bandwidth', 'freq', 'gain'].forEach(paramType => {
-        const blendedParams = [0, 0, 0, 0, 0];
+        const blendedParams = [0, 0, 0];
         for (let i = 0; i < 5; i++) {
             blendedParams[i] = FORMANT_DATA.A[paramType][i] * weights[0] + FORMANT_DATA.E[paramType][i] * weights[1] + FORMANT_DATA.I[paramType][i] * weights[2] + FORMANT_DATA.O[paramType][i] * weights[3] + FORMANT_DATA.U[paramType][i] * weights[4];
         }

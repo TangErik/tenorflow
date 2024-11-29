@@ -37,52 +37,204 @@ body, html {
     left: 670px; /* 原左偏移1170px，左移200px，即1170px - 200px */
 }
 
-#U-button {
+#i-button {
     position: absolute;
-    bottom: 595px; /* 上移后的值 */
-    right: -115px; /* 545px - 600px */
+    bottom: 555px; 
+    right: 900px;
     z-index: 10;
-    transform: scale(2); /* 放大一倍 */
+    transform: scale(2);
 }
 
-#A-button {
+#y-button {
     position: absolute;
-    bottom: -50px; /* 上移后的值 */
-    right: -55px; /* 608px - 600px */
+    bottom: 555px;
+    right: 847px;
     z-index: 10;
-    transform: scale(2); /* 放大一倍 */
+    transform: scale(2);
 }
 
-#I-button {
+#ɨ-button {
     position: absolute;
-    bottom: 600px; /* 上移后的值 */
-    right: 905px; /* 1575px - 600px */
+    bottom: 555px;
+    right: 425px;
     z-index: 10;
-    transform: scale(2); /* 放大一倍 */
+    transform: scale(2);
 }
 
-#E-button {
+#ʉ-button {
     position: absolute;
-    bottom: 355px; /* 上移后的值 */
-    right: 740px; /* 1420px - 600px */
+    bottom: 555px;
+    right: 372px;
     z-index: 10;
-    transform: scale(2); /* 放大一倍 */
+    transform: scale(2);
 }
 
-#O-button {
+#w-button {
     position: absolute;
-    bottom: 356px; /* 上移后的值 */
-    right: -100px; /* 565px - 600px */
+    bottom: 555px;
+    right: -53px;
     z-index: 10;
-    transform: scale(2); /* 放大一倍 */
+    transform: scale(2);
 }
 
-#AA-button {
+#u-button {
     position: absolute;
-    bottom: -50px; /* 上移后的值 */
-    right: 410px; /* 1100px - 600px */
+    bottom: 555px;
+    right: -105px;
     z-index: 10;
-    transform: scale(2); /* 放大一倍 */
+    transform: scale(2);
+}
+
+#e-button {
+    position: absolute;
+    bottom: 350px;
+    right: 735px;
+    z-index: 10;
+    transform: scale(2);
+}
+
+#ø-button {
+    position: absolute;
+    bottom: 350px;
+    right: 681px;
+    z-index: 10;
+    transform: scale(2);
+}
+
+#ɘ-button {
+    position: absolute;
+    bottom: 350px;
+    right: 350px;
+    z-index: 10;
+    transform: scale(2);
+}
+
+#ɵ-button {
+    position: absolute;
+    bottom: 350px;
+    right: 297px;
+    z-index: 10;
+    transform: scale(2);
+}
+
+#ɤ-button {
+    position: absolute;
+    bottom: 350px;
+    right: -45px;
+    z-index: 10;
+    transform: scale(2);
+}
+
+#o-button {
+    position: absolute;
+    bottom: 351px;
+    right: -98px;
+    z-index: 10;
+    transform: scale(2);
+}
+
+#ə-button {
+    position: absolute;
+    bottom: 260px;
+    right: 280px;
+    z-index: 10;
+    transform: scale(2);
+}
+
+#ɛ-button {
+    position: absolute;
+    bottom: 150px;
+    right: 575px;
+    z-index: 10;
+    transform: scale(2);
+}
+
+#œ-button {
+    position: absolute;
+    bottom: 150px;
+    right: 513px;
+    z-index: 10;
+    transform: scale(2);
+}
+
+#ɜ-button {
+    position: absolute;
+    bottom: 150px;
+    right: 280px;
+    z-index: 10;
+    transform: scale(2);
+}
+
+#ɞ-button {
+    position: absolute;
+    bottom: 150px;
+    right: 230px;
+    z-index: 10;
+    transform: scale(2);
+}
+
+#ʌ-button {
+    position: absolute;
+    bottom: 150px;
+    right: -25px;
+    z-index: 10;
+    transform: scale(2);
+}
+
+#ɔ-button {
+    position: absolute;
+    bottom: 151px;
+    right: -75px;
+    z-index: 10;
+    transform: scale(2);
+}
+
+#æ-button {
+    position: absolute;
+    bottom: 30px;
+    right: 475px;
+    z-index: 10;
+    transform: scale(2);
+}
+
+#ɐ-button {
+    position: absolute;
+    bottom: 90px;
+    right: 235px;
+    z-index: 10;
+    transform: scale(2);
+}
+
+#aa-button {
+    position: absolute;
+    bottom: -50px;
+    right: 420px;
+    z-index: 10;
+    transform: scale(2);
+}
+
+#ɶ-button {
+    position: absolute;
+    bottom: -50px;
+    right: 363px;
+    z-index: 10;
+    transform: scale(2);
+}
+
+#a-button {
+    position: absolute;
+    bottom: -50px;
+    right: -5px;
+    z-index: 10;
+    transform: scale(2);
+}
+
+#ɒ-button {
+    position: absolute;
+    bottom: -49px;
+    right: -55px;
+    z-index: 10;
+    transform: scale(2);
 }
 
 #synthesizer-container {
@@ -150,7 +302,7 @@ body, html {
 
 /* 单独定位每个文本框 */
 #text1 {
-    top: -653px;
+    top: -654px;
     left: -485px;
 }
 
@@ -167,6 +319,16 @@ body, html {
 #text4 {
     top: -52px;
     left: -2px;
+}
+
+#text5 {
+    top: -654px;
+    left: -45px;
+}
+
+#text6 {
+    top: -654px;
+    left: 370px;
 }
 
 #vowel {
@@ -194,7 +356,7 @@ body, html {
 
 /* 鼠标悬停效果 */
 #vowel > button:hover {
-    transform: scale(1.5); /* 悬停时恢复为正常大小 */
+    transform: scale(1.05); /* 悬停时恢复为正常大小 */
     background: linear-gradient(90deg, #3697ff, #66b2ff); /* 渐变变浅 */
     border-color: #73b2f5; /* 悬停时边框变亮 */
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* 增强阴影 */
@@ -202,7 +364,6 @@ body, html {
 
 /* 鼠标按下效果 */
 #vowel > button:active {
-    transform: scale(0.95); /* 按下时略微缩小 */
     background: linear-gradient(90deg, #67c2ff, #007bff); /* 按下背景加深 */
     box-shadow: 0 3px 6px rgba(255, 221, 221, 0.2); /* 减弱阴影 */
 }
