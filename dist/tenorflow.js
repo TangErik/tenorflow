@@ -1,3 +1,4 @@
+/** @type {import("@grame/faustwasm").FaustAudioWorkletNode} */
 let faustNode = null;  // 在全局作用域定义 faustNode
 let currentParams = [];
 
@@ -130,7 +131,7 @@ $buttonDsp.onclick = () => {
  * @param {string} dspName - The name of the DSP to be loaded.
  * @param {number} voices - The number of voices to be used for polyphonic DSPs.
  * @param {boolean} sp - Whether to create a ScriptProcessorNode instead of an AudioWorkletNode.
- * @returns {Object} - An object containing the Faust audio node and the DSP metadata.
+ * @returns {Promise<{ faustNode: import("@grame/faustwasm").FaustAudioWorkletNode; dspMeta: import("@grame/faustwasm").FaustDspMeta }> }} - An object containing the Faust audio node and the DSP metadata.
  */
 const createFaustNode = async (audioContext, dspName = "template", voices = 0, sp = false) => {
     // Import necessary Faust modules and data
@@ -206,130 +207,130 @@ const createFaustUI = async (faustNode) => {
 };
 
 const FORMANT_DATA = {
-    i: {
-        freq: [240, 2400, 3300],
-        bandwidth: [60, 90, 120,],
-        gain: [1, 0.5, 0.3]
+    "i": {
+        "freq": [240, 2400, 3300, 2800, 3100, 3400, 3500],
+        "bandwidth": [60, 90, 120, 120, 120, 120, 120],
+        "gain": [1, 0.5, 0.3, 0.25, 0.25, 0.25, 0.25]
     },
-    y: {
-        freq: [240, 2000, 2500],
-        bandwidth: [60, 80, 120],
-        gain: [1, 0.4, 0.3]
+    "y": {
+        "freq": [240, 2000, 2500, 2800, 3100, 3400, 3500],
+        "bandwidth": [60, 80, 120, 120, 120, 120, 120],
+        "gain": [1, 0.4, 0.3, 0.25, 0.25, 0.25, 0.25]
     },
-    ɨ: {
-        freq: [300, 1700, 2400],
-        bandwidth: [70, 80, 120],
-        gain: [1, 0.4, 0.2]
+    "ɨ": {
+        "freq": [300, 1700, 2400, 2800, 3100, 3400, 3500],
+        "bandwidth": [70, 80, 120, 120, 120, 120, 120],
+        "gain": [1, 0.4, 0.2, 0.25, 0.25, 0.25, 0.25]
     },
-    ʉ: {
-        freq: [325, 1700, 2300],
-        bandwidth: [70, 90, 120],
-        gain: [1, 0.3, 0.2]
+    "ʉ": {
+        "freq": [325, 1700, 2300, 2800, 3100, 3400, 3500],
+        "bandwidth": [70, 90, 120, 120, 120, 120, 120],
+        "gain": [1, 0.3, 0.2, 0.25, 0.25, 0.25, 0.25]
     },
-    w: {
-        freq: [370, 1300, 2500],
-        bandwidth: [80, 100, 120],
-        gain: [1, 0.4, 0.3]
+    "w": {
+        "freq": [370, 1300, 2500, 2800, 3100, 3400, 3500],
+        "bandwidth": [80, 100, 120, 120, 120, 120, 120],
+        "gain": [1, 0.4, 0.3, 0.25, 0.25, 0.25, 0.25]
     },
-    u: {
-        freq: [370, 1300, 2500],
-        bandwidth: [80, 100, 120],
-        gain: [1, 0.4, 0.3]
+    "u": {
+        "freq": [370, 1300, 2500, 2800, 3100, 3400, 3500],
+        "bandwidth": [80, 100, 120, 120, 120, 120, 120],
+        "gain": [1, 0.4, 0.3, 0.25, 0.25, 0.25, 0.25]
     },
-    e: {
-        freq: [400, 2300, 3000],
-        bandwidth: [70, 90, 120],
-        gain: [1, 0.5, 0.3]
+    "e": {
+        "freq": [400, 2300, 3000, 2800, 3100, 3400, 3500],
+        "bandwidth": [70, 90, 120, 120, 120, 120, 120],
+        "gain": [1, 0.5, 0.3, 0.25, 0.25, 0.25, 0.25]
     },
-    ø: {
-        freq: [400, 2000, 2500],
-        bandwidth: [70, 90, 120],
-        gain: [1, 0.4, 0.3]
+    "ø": {
+        "freq": [400, 2000, 2500, 2800, 3100, 3400, 3500],
+        "bandwidth": [70, 90, 120, 120, 120, 120, 120],
+        "gain": [1, 0.4, 0.3, 0.25, 0.25, 0.25, 0.25]
     },
-    ɘ: {
-        freq: [450, 1750, 2400],
-        bandwidth: [70, 90, 120],
-        gain: [1, 0.3, 0.2]
+    "ɘ": {
+        "freq": [450, 1750, 2400, 2800, 3100, 3400, 3500],
+        "bandwidth": [70, 90, 120, 120, 120, 120, 120],
+        "gain": [1, 0.3, 0.2, 0.25, 0.25, 0.25, 0.25]
     },
-    ɵ: {
-        freq: [450, 1500, 2300],
-        bandwidth: [80, 100, 120],
-        gain: [1, 0.3, 0.2]
+    "ɵ": {
+        "freq": [450, 1500, 2300, 2800, 3100, 3400, 3500],
+        "bandwidth": [80, 100, 120, 120, 120, 120, 120],
+        "gain": [1, 0.3, 0.2, 0.25, 0.25, 0.25, 0.25]
     },
-    ɤ: {
-        freq: [550, 1200, 2500],
-        bandwidth: [90, 110, 120],
-        gain: [1, 0.3, 0.2]
+    "ɤ": {
+        "freq": [550, 1200, 2500, 2800, 3100, 3400, 3500],
+        "bandwidth": [90, 110, 120, 120, 120, 120, 120],
+        "gain": [1, 0.3, 0.2, 0.25, 0.25, 0.25, 0.25]
     },
-    o: {
-        freq: [550, 1200, 2500],
-        bandwidth: [90, 110, 120],
-        gain: [1, 0.3, 0.2]
+    "o": {
+        "freq": [550, 1200, 2500, 2800, 3100, 3400, 3500],
+        "bandwidth": [90, 110, 120, 120, 120, 120, 120],
+        "gain": [1, 0.3, 0.2, 0.25, 0.25, 0.25, 0.25]
     },
-    ə: {
-        freq: [500, 1500, 2500],
-        bandwidth: [80, 100, 120],
-        gain: [1, 0.4, 0.3]
+    "ə": {
+        "freq": [500, 1500, 2500, 2800, 3100, 3400, 3500],
+        "bandwidth": [80, 100, 120, 120, 120, 120, 120],
+        "gain": [1, 0.4, 0.3, 0.25, 0.25, 0.25, 0.25]
     },
-    ɛ: {
-        freq: [550, 1850, 2500],
-        bandwidth: [80, 100, 120],
-        gain: [1, 0.5, 0.3]
+    "ɛ": {
+        "freq": [550, 1850, 2500, 2800, 3100, 3400, 3500],
+        "bandwidth": [80, 100, 120, 120, 120, 120, 120],
+        "gain": [1, 0.5, 0.3, 0.25, 0.25, 0.25, 0.25]
     },
-    œ: {
-        freq: [550, 1500, 2500],
-        bandwidth: [90, 110, 120],
-        gain: [1, 0.4, 0.3]
+    "œ": {
+        "freq": [550, 1500, 2500, 2800, 3100, 3400, 3500],
+        "bandwidth": [90, 110, 120, 120, 120, 120, 120],
+        "gain": [1, 0.4, 0.3, 0.25, 0.25, 0.25, 0.25]
     },
-    ɜ: {
-        freq: [600, 1600, 2500],
-        bandwidth: [80, 100, 120],
-        gain: [1, 0.5, 0.3]
+    "ɜ": {
+        "freq": [600, 1600, 2500, 2800, 3100, 3400, 3500],
+        "bandwidth": [80, 100, 120, 120, 120, 120, 120],
+        "gain": [1, 0.5, 0.3, 0.25, 0.25, 0.25, 0.25]
     },
-    ɞ: {
-        freq: [600, 1400, 2500],
-        bandwidth: [80, 100, 120],
-        gain: [1, 0.4, 0.3]
+    "ɞ": {
+        "freq": [600, 1400, 2500, 2800, 3100, 3400, 3500],
+        "bandwidth": [80, 100, 120, 120, 120, 120, 120],
+        "gain": [1, 0.4, 0.3, 0.25, 0.25, 0.25, 0.25]
     },
-    ʌ: {
-        freq: [600, 1200, 2500],
-        bandwidth: [80, 100, 120],
-        gain: [1, 0.4, 0.3]
+    "ʌ": {
+        "freq": [600, 1200, 2500, 2800, 3100, 3400, 3500],
+        "bandwidth": [80, 100, 120, 120, 120, 120, 120],
+        "gain": [1, 0.4, 0.3, 0.25, 0.25, 0.25, 0.25]
     },
-    ɔ: {
-        freq: [600, 1000, 2500],
-        bandwidth: [90, 110, 120],
-        gain: [1, 0.4, 0.3]
+    "ɔ": {
+        "freq": [600, 1000, 2500, 2800, 3100, 3400, 3500],
+        "bandwidth": [90, 110, 120, 120, 120, 120, 120],
+        "gain": [1, 0.4, 0.3, 0.25, 0.25, 0.25, 0.25]
     },
-    æ: {
-        freq: [700, 1700, 2500],
-        bandwidth: [100, 120, 140],
-        gain: [1, 0.4, 0.3]
+    "æ": {
+        "freq": [700, 1700, 2500, 2800, 3100, 3400, 3500],
+        "bandwidth": [100, 120, 140, 120, 120, 120, 120],
+        "gain": [1, 0.4, 0.3, 0.25, 0.25, 0.25, 0.25]
     },
-    ɐ: {
-        freq: [750, 1300, 2500],
-        bandwidth: [100, 120, 140],
-        gain: [1, 0.3, 0.2]
+    "ɐ": {
+        "freq": [750, 1300, 2500, 2800, 3100, 3400, 3500],
+        "bandwidth": [100, 120, 140, 120, 120, 120, 120],
+        "gain": [1, 0.3, 0.2, 0.25, 0.25, 0.25, 0.25]
     },
-    aa: {
-        freq: [800, 1600, 2500],
-        bandwidth: [110, 130, 150],
-        gain: [1, 0.5, 0.3]
+    "aa": {
+        "freq": [800, 1600, 2500, 2800, 3100, 3400, 3500],
+        "bandwidth": [110, 130, 150, 120, 120, 120, 120],
+        "gain": [1, 0.5, 0.3, 0.25, 0.25, 0.25, 0.25]
     },
-    ɶ: {
-        freq: [800, 1400, 2500],
-        bandwidth: [110, 130, 150],
-        gain: [1, 0.4, 0.3]
+    "ɶ": {
+        "freq": [800, 1400, 2500, 2800, 3100, 3400, 3500],
+        "bandwidth": [110, 130, 150, 120, 120, 120, 120],
+        "gain": [1, 0.4, 0.3, 0.25, 0.25, 0.25, 0.25]
     },
-    a: {
-        freq: [850, 1200, 2500],
-        bandwidth: [110, 130, 150],
-        gain: [1, 0.3, 0.2]
+    "a": {
+        "freq": [850, 1200, 2500, 2800, 3100, 3400, 3500],
+        "bandwidth": [110, 130, 150, 120, 120, 120, 120],
+        "gain": [1, 0.3, 0.2, 0.25, 0.25, 0.25, 0.25]
     },
-    ɒ: {
-        freq: [850, 1000, 2500],
-        bandwidth: [110, 130, 150],
-        gain: [1, 0.3, 0.2]
+    "ɒ": {
+        "freq": [850, 1000, 2500, 2800, 3100, 3400, 3500],
+        "bandwidth": [110, 130, 150, 120, 120, 120, 120],
+        "gain": [1, 0.3, 0.2, 0.25, 0.25, 0.25, 0.25]
     }
 };
 
@@ -337,6 +338,15 @@ const FORMANT_DATA = {
  * @param {import("./faustwasm/index").FaustAudioWorkletNode} faustNode
  * @param {import("@shren/faust-ui").FaustUI} faustUI
  **/
+// 获取滑条和显示的值
+const timeSlider = document.getElementById('time-slider');
+const timeValue = document.getElementById('time-value');
+
+// 监听滑条变化，更新时间显示
+timeSlider.addEventListener('input', () => {
+    timeValue.textContent = timeSlider.value;
+});
+
 const bindButtons = (faustNode, faustUI) => {
     ['i', 'y', 'ɨ', 'ʉ', 'w', 'u', 
      'e', 'ø', 'ɘ', 'ɵ', 'ɤ', 'o', 
@@ -352,7 +362,8 @@ const bindButtons = (faustNode, faustUI) => {
                         const paramName = `/tenorflow/formants/formant_${index}/${paramType.charAt(0).toUpperCase() + paramType.slice(1)}_${index}`;
                         faustNode.parameters.get(paramName).cancelAndHoldAtTime(audioContext.currentTime);
                         faustNode.parameters.get(paramName).value = faustNode.parameters.get(paramName).value;
-                        faustNode.parameters.get(paramName).linearRampToValueAtTime(value, audioContext.currentTime + 1);
+                        // faustNode.parameters.get(paramName).linearRampToValueAtTime(value, audioContext.currentTime);
+                        faustNode.parameters.get(paramName).linearRampToValueAtTime(value, audioContext.currentTime + parseFloat(timeSlider.value));
                         // faustNode.setParamValue(paramName, value);
                         // faustUI.paramChangeByDSP(paramName, value);
                     });
@@ -445,7 +456,6 @@ window.addEventListener('mousemove', handleMousemove);
 window.addEventListener('mouseup', handleMouseup);
 });
 */
-
 (async () => {
     const { faustNode: localFaustNode, dspMeta: { name } } = await createFaustNode(audioContext, "tenorflow");
     faustNode = localFaustNode;  // 初始化全局的 faustNode
@@ -457,6 +467,14 @@ window.addEventListener('mouseup', handleMouseup);
     else $spanMidiInput.hidden = true;
     $buttonDsp.disabled = false;
     document.title = name;
+    
+    const raf = () => {
+        faustNode.getParams().forEach((paramName) => {
+            faustUI.paramChangeByDSP(paramName, faustNode.getParamValue(paramName));
+        });
+        requestAnimationFrame(raf);
+    };
+    requestAnimationFrame(raf);
     bindButtons(faustNode, faustUI);
 })();
 

@@ -8,7 +8,6 @@
     <title>Faust DSP</title>
     <link rel="stylesheet" href="./faust-ui/index.css">
     <link rel="stylesheet" href="style.css">
-
 </head>
 
 <body>
@@ -64,7 +63,10 @@
                 <div class="text-box" id="text4">Open</div>
                 <div class="text-box" id="text5">Mid</div>
                 <div class="text-box" id="text6">Back</div>
-            </div>
+            </div>      
+                <label for="time-slider">Time Duration:</label>
+                <input type="range" id="time-slider" min="0" max="5" step="0.1" value="1">
+                <span id="time-value">1</span>
         </div>
         <div id="div-faust-ui">
             <div id="synthesizer-container">

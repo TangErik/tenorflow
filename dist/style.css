@@ -247,6 +247,40 @@ body, html {
     top: 5px; /* 向下偏移5px */
 }
 
+label {
+    font-size: 16px;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+input[type="range"] {
+    width: 300px;
+    height: 10px;
+    background: #ddd;
+    border-radius: 5px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #4CAF50;
+    cursor: pointer;
+}
+
+#time-value {
+    font-size: 16px;
+    margin-left: 10px;
+}
+
+label, input[type="range"], #time-value {
+    position: relative;  /* 允许使用top、left偏移 */
+    top: -700px;         /* 向上移动500px */
+    right: 580px;
+}
+
 .line {
     position: absolute;
     background-color: black; /* 线条颜色 */

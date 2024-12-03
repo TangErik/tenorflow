@@ -1,24 +1,24 @@
 import("stdfaust.lib");
 
 // FormantsBank
-formantFs = par(i, 3, hslider("/h:formants/v:formant_%i/Freq_%i[style:knob]", 100, 0, 4000, 1));
-formantBWs = par(i, 3, hslider("/h:formants/v:formant_%i/Bandwidth_%i[style:knob]", 10, 0, 200, 1));
-formantGs = par(i, 3, hslider("/h:formants/v:formant_%i/Gain_%i[style:knob]", 0, 0, 1, 0.01));
-formantFilterbank = par(i, 3, fi.resonbp(f, q, g) with {
+formantFs = par(i, 7, hslider("/h:formants/v:formant_%i/Freq_%i[style:knob]", 100, 0, 4000, 1));
+formantBWs = par(i, 7, hslider("/h:formants/v:formant_%i/Bandwidth_%i[style:knob]", 10, 0, 200, 1));
+formantGs = par(i, 7, hslider("/h:formants/v:formant_%i/Gain_%i[style:knob]", 0, 0, 1, 0.01));
+formantFilterbank = par(i, 7, fi.resonbp(f, q, g) with {
     f = ba.take(i + 1, formantFs) : pm.autobendFreq(i, freq, 4);
     q = f / ba.take(i + 1, formantBWs);
     g = ba.take(i + 1, formantGs) : pm.vocalEffort(freq, 0);
 });
 
 // Breath
-wnoise = no.noise : fi.lowpass(2, freq * 5);
-pnoise = no.pink_noise : fi.lowpass(2, freq * 5);
+wnoise = no.noise : fi.lowpass(2, freq * 3);
+pnoise = no.pink_noise : fi.lowpass(2, freq * 2);
 breathType = hslider("/h:settings/v:Noise/breathType", 0, 0, 1, 1);
 selectedBreath = select2(breathType, wnoise, pnoise);
 breathVolume = hslider("/h:settings/v:Noise/breathVolume", 0, 0, 1, 0.01);
 
 // Vibrato
-vibrato_base_freq = hslider("/v:2/h:vibrato/VibratoFreq[style:knob]", 4, 2, 6, 0.1);
+vibrato_base_freq = hslider("/v:2/h:vibrato/VibratoFreq[style:knob]", 4, 0, 6, 0.1);
 vibrato_depth = hslider("/v:2/h:vibrato/VibratoDepth[style:knob]", 0.7, 0, 3, 0.1);
 vibrato_freq = (vibrato_base_freq + 4 * no.noise) : si.smoo;
 vibrato = checkbox("/v:1/[1]Vibrato");
@@ -35,7 +35,7 @@ t = button("/v:1/[2]trigger");
 envelop = en.adsr(a, d, s, r, t);
 
 // Settings
-gain = hslider("/h:settings/v:Voice/gain", 0.2, 0, 0.5, 0.01);
+gain = hslider("/h:settings/v:Voice/gain", 0.2, 0, 1, 0.01);
 gate = checkbox("/v:1/[0]gate[SHCUI:DEMO checkbox 0 0 50 50 255 0 255 255]");
 duty = hslider("/h:settings/v:Voice/duty", 0.99, 0.01, 1, 0.01);
 wave = os.pulsetrain(freq, duty);
