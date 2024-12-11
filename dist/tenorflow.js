@@ -347,6 +347,8 @@ timeSlider.addEventListener('input', () => {
     timeValue.textContent = timeSlider.value;
 });
 
+
+
 const bindButtons = (faustNode, faustUI) => {
     ['i', 'y', 'ɨ', 'ʉ', 'w', 'u', 
      'e', 'ø', 'ɘ', 'ɵ', 'ɤ', 'o', 
@@ -457,7 +459,7 @@ window.addEventListener('mouseup', handleMouseup);
 });
 */
 (async () => {
-    const { faustNode: localFaustNode, dspMeta: { name } } = await createFaustNode(audioContext, "tenorflow");
+    const { faustNode: localFaustNode, dspMeta: { name } } = await createFaustNode(audioContext, "tenorflow", 8);
     faustNode = localFaustNode;  // 初始化全局的 faustNode
     const faustUI = await createFaustUI(faustNode);
     faustNode.connect(audioContext.destination);
