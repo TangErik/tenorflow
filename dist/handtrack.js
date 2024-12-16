@@ -98,45 +98,71 @@ function enableCam(event) {
 let lastVideoTime = -1;
 let results = undefined;
 console.log(video);
+
+// 映射函数，限制范围并确保符合步长
+const mapYToFrequency = (y, minFreq, maxFreq, step) => {
+    const clampedY = Math.min(Math.max(y, 0), 1); // 限制 y 值到 [0, 1]
+    const rawFreq = maxFreq - clampedY * (maxFreq - minFreq);
+    return Math.round(rawFreq / step) * step; // 调整到符合步长
+};
+
+// 使用食指指尖的 y 坐标控制频率
 async function predictWebcam() {
-    canvasElement.style.width = video.videoWidth;;
-    canvasElement.style.height = video.videoHeight;
     canvasElement.width = video.videoWidth;
     canvasElement.height = video.videoHeight;
-    
-    // Now let's start detecting the stream.
+
     if (runningMode === "IMAGE") {
         runningMode = "VIDEO";
         await handLandmarker.setOptions({ runningMode: "VIDEO" });
     }
+
     let startTimeMs = performance.now();
     if (lastVideoTime !== video.currentTime) {
         lastVideoTime = video.currentTime;
         results = handLandmarker.detectForVideo(video, startTimeMs);
     }
-    canvasCtx.save();
+
     canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
-    if (results.landmarks) {
+
+    if (results && results.landmarks) {
         for (const landmarks of results.landmarks) {
-            drawConnectors(canvasCtx, landmarks, HAND_CONNECTIONS, {
-                color: "#00FF00",
-                lineWidth: 5
-            });
-            drawLandmarks(canvasCtx, landmarks, { color: "#FF0000", lineWidth: 2 });
-        }
-        if (window.faustNode) {
-            /** @type {import("@grame/faustwasm").FaustAudioWorkletNode} */
-            const faustNode = window.faustNode;
-            // faustNode.setParamValue()
+            // 获取食指指尖的 y 坐标
+            const fingerTipY = landmarks[8]?.y || null;
+            if (fingerTipY !== null) {
+                console.log("Index finger tip Y:", fingerTipY);
+
+                // 映射 y 坐标到频率范围
+                const minFreq = 20; // 最低频率
+                const maxFreq = 500; // 最高频率
+                const step = 0.1;   // 步长
+                const frequency = mapYToFrequency(
+                    fingerTipY, // 直接使用 y 值
+                    minFreq,
+                    maxFreq,
+                    step
+                );
+                console.log("Mapped frequency:", frequency);
+
+                // 更新 tenorflow 的 freq 参数
+                const paramName = "tenorflow/settings/Voice/freq";
+                if (window.faustNode) {
+                    if(window.faustNode.parameters.get("tenorflow/settings/Voice/freq")){
+                        console.log(window.faustNode.parameters.get("tenorflow/settings/Voice/freq"))
+                        // window.faustNode.parameters.get(paramName).value = frequency;
+                    }
+                }
+            } else {
+                console.log("No index finger detected.");
+            }
         }
     }
-    canvasCtx.restore();
 
-    // Call this function again to keep predicting when the browser is ready.
     if (webcamRunning === true) {
         window.requestAnimationFrame(predictWebcam);
     }
 }
+
+
 /*
 Object.keys(json).forEach((hand) => {
     const pointsArray = Object.values(Object.values(json)[hand]);

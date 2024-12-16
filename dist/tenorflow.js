@@ -405,61 +405,9 @@ const bindButtons = (faustNode, faustUI) => {
     });
 };
 
-// 获取按钮元素
-// const button = document.getElementById('tenorflow/1/t');
-
-
-/*
-const buttonsPosition = {
-    A: [400, 400],
-    E: [400, 400],
-    I: [400, 400],
-    O: [400, 400],
-    U: [400, 400]
-};
-const buttonA = document.getElementById('A-button');
-buttonA.style.marginLeft = buttonsPosition.A[0];
-buttonA.style.marginTop = buttonsPosition.A[1];
-
-const draggable = document.getElementById('draggable');
-draggable.addEventListener('mousedown', (e) => {
-const handleMousemove = (e) => {
-    const x = e.clientX;
-    const y = e.clientY;
-    draggable.style.left = x + "px";
-    draggable.style.top = y + "px";
-    const factor = [
-        1 / Math.sqrt((x - buttonsPosition.A[0]) ** 2 + (y - buttonsPosition.A[1]) ** 2),
-        1 / Math.sqrt((x - buttonsPosition.E[0]) ** 2 + (y - buttonsPosition.E[1]) ** 2),
-        1 / Math.sqrt((x - buttonsPosition.I[0]) ** 2 + (y - buttonsPosition.I[1]) ** 2),
-        1 / Math.sqrt((x - buttonsPosition.O[0]) ** 2 + (y - buttonsPosition.O[1]) ** 2),
-        1 / Math.sqrt((x - buttonsPosition.U[0]) ** 2 + (y - buttonsPosition.U[1]) ** 2),
-    ];
-    const sum = factor.reduce((sum, cur) => sum + cur, 0);
-    const weights = factor.map(x => x / sum);
-    ['bandwidth', 'freq', 'gain'].forEach(paramType => {
-        const blendedParams = [0, 0, 0];
-        for (let i = 0; i < 5; i++) {
-            blendedParams[i] = FORMANT_DATA.A[paramType][i] * weights[0] + FORMANT_DATA.E[paramType][i] * weights[1] + FORMANT_DATA.I[paramType][i] * weights[2] + FORMANT_DATA.O[paramType][i] * weights[3] + FORMANT_DATA.U[paramType][i] * weights[4];
-        }
-        blendedParams.forEach((value, index) => {
-            const paramName = `/tenorflow/formants/formant_${index}/${paramType.charAt(0).toUpperCase() + paramType.slice(1)}_${index}`;
-            faustNode.setParamValue(paramName, value);
-            faustUI.paramChangeByDSP(paramName, value);
-        });
-    });
-};
-const handleMouseup = (e) => {
-window.removeEventListener('mousemove', handleMousemove);
-window.removeEventListener('mouseup', handleMouseup);
-}
-window.addEventListener('mousemove', handleMousemove);
-window.addEventListener('mouseup', handleMouseup);
-});
-*/
 (async () => {
-    const { faustNode, dspMeta: { name } } = await createFaustNode(audioContext, "tenorflow");
-    window.faustNode = faustNode;  // 初始化全局的 faustNode
+    const { faustNode, dspMeta: { name } } = await createFaustNode(audioContext, "tenorflow");// 初始化全局的 faustNode
+    window.faustNode = faustNode;  
     const faustUI = await createFaustUI(faustNode);
     faustNode.connect(audioContext.destination);
     if (faustNode.numberOfInputs) await buildAudioDeviceMenu(faustNode);
