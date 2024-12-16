@@ -1,10 +1,7 @@
-// import { WebSocketServer } from "ws";
-
 /** @type {import("@grame/faustwasm").FaustAudioWorkletNode} */
 let faustNode = null;  // 在全局作用域定义 faustNode
 let currentParams = [];
 
-// import (WebSocketServer);
 /**
  * @typedef {import("./types").FaustDspDistribution} FaustDspDistribution
  * @typedef {import("./faustwasm").FaustAudioWorkletNode} FaustAudioWorkletNode
@@ -461,8 +458,8 @@ window.addEventListener('mouseup', handleMouseup);
 });
 */
 (async () => {
-    const { faustNode: localFaustNode, dspMeta: { name } } = await createFaustNode(audioContext, "tenorflow");
-    faustNode = localFaustNode;  // 初始化全局的 faustNode
+    const { faustNode, dspMeta: { name } } = await createFaustNode(audioContext, "tenorflow");
+    window.faustNode = faustNode;  // 初始化全局的 faustNode
     const faustUI = await createFaustUI(faustNode);
     faustNode.connect(audioContext.destination);
     if (faustNode.numberOfInputs) await buildAudioDeviceMenu(faustNode);

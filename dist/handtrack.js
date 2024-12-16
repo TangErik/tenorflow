@@ -17,8 +17,9 @@ import {
     FilesetResolver
 } from "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.0";
 
+// import { WebSocketServer } from "ws";
 
-const client = new WebSocket("ws://localhost;8888");
+// const client = new WebSocket("ws://localhost:8888");
 const demosSection = document.getElementById("demos");
 
 let handLandmarker = undefined;
@@ -105,35 +106,38 @@ async function predictWebcam() {
     
     // Now let's start detecting the stream.
     if (runningMode === "IMAGE") {
-    runningMode = "VIDEO";
-    await handLandmarker.setOptions({ runningMode: "VIDEO" });
+        runningMode = "VIDEO";
+        await handLandmarker.setOptions({ runningMode: "VIDEO" });
     }
     let startTimeMs = performance.now();
     if (lastVideoTime !== video.currentTime) {
-    lastVideoTime = video.currentTime;
-    results = handLandmarker.detectForVideo(video, startTimeMs);
+        lastVideoTime = video.currentTime;
+        results = handLandmarker.detectForVideo(video, startTimeMs);
     }
     canvasCtx.save();
     canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
     if (results.landmarks) {
-        if(client.readyState === WebSocket.OPEN){
-        client.send(JSON.stringify(results.landmarks));
+        for (const landmarks of results.landmarks) {
+            drawConnectors(canvasCtx, landmarks, HAND_CONNECTIONS, {
+                color: "#00FF00",
+                lineWidth: 5
+            });
+            drawLandmarks(canvasCtx, landmarks, { color: "#FF0000", lineWidth: 2 });
         }
-    for (const landmarks of results.landmarks) {
-        drawConnectors(canvasCtx, landmarks, HAND_CONNECTIONS, {
-        color: "#00FF00",
-        lineWidth: 5
-        });
-        drawLandmarks(canvasCtx, landmarks, { color: "#FF0000", lineWidth: 2 });
-    }
+        if (window.faustNode) {
+            /** @type {import("@grame/faustwasm").FaustAudioWorkletNode} */
+            const faustNode = window.faustNode;
+            // faustNode.setParamValue()
+        }
     }
     canvasCtx.restore();
 
     // Call this function again to keep predicting when the browser is ready.
     if (webcamRunning === true) {
-    window.requestAnimationFrame(predictWebcam);
+        window.requestAnimationFrame(predictWebcam);
     }
 }
+/*
 Object.keys(json).forEach((hand) => {
     const pointsArray = Object.values(Object.values(json)[hand]);
     for (let i = 0;i<pointsArray.length;i++) {
@@ -141,4 +145,5 @@ Object.keys(json).forEach((hand) => {
       max.outlet(+hand, i, point["x"], point["y"], point["z"]);
       // max.post(+hand, i, point["x"], point["y"], point["z"]);
     }
-  });
+});
+*/
