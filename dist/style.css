@@ -408,4 +408,125 @@ label, input[type="range"], #time-value {
     box-shadow: 0 0 10px 3px rgba(147, 199, 255, 0.7); /* 添加蓝色光晕 */
 }
 
+video {
+    clear: both;
+    display: block;
+    transform: rotateY(180deg);
+    -webkit-transform: rotateY(180deg);
+    -moz-transform: rotateY(180deg);
+}
 
+section {
+    opacity: 1;
+    transition: opacity 500ms ease-in-out;
+}
+
+header,
+footer {
+    clear: both;
+}
+
+.removed {
+    display: none;
+}
+
+.invisible {
+    opacity: 0.2;
+}
+
+.note {
+    font-style: italic;
+    font-size: 130%;
+}
+
+.videoView,
+.detectOnClick {
+    position: relative;
+    float: left;
+    width: 48%;
+    margin: 2% 1%;
+    cursor: pointer;
+}
+
+.videoView p,
+.detectOnClick p {
+    position: absolute;
+    padding: 5px;
+    background-color: #007f8b;
+    color: #fff;
+    border: 1px dashed rgba(255, 255, 255, 0.7);
+    z-index: 2;
+    font-size: 12px;
+    margin: 0;
+}
+
+.highlighter {
+    background: rgba(0, 255, 0, 0.25);
+    border: 1px dashed #fff;
+    z-index: 1;
+    position: absolute;
+}
+
+.canvas {
+    z-index: 1;
+    position: absolute;
+    pointer-events: none;
+    top: -250px !important;
+    right: 250px !important;
+}
+
+
+
+.detectOnClick {
+    z-index: 0;
+}
+
+.detectOnClick img {
+    width: 100%;
+}
+
+/* 按钮样式 */
+#webcamButton {
+    position: relative; /* 相对定位，便于调整位置 */
+    margin-bottom: 20px; /* 和视频之间的间距 */
+    padding: 10px 20px; /* 内边距，控制按钮大小 */
+    font-size: 16px; /* 按钮文字大小 */
+    background-color: #6200ee; /* 按钮背景色 */
+    color: #ffffff; /* 按钮文字颜色 */
+    border: none; /* 移除边框 */
+    border-radius: 5px; /* 圆角效果 */
+    cursor: pointer; /* 鼠标移入变为手型 */
+    right: 575px;
+    top: -240px;
+}
+
+#webcamButton:hover {
+    background-color: #3700b3; /* 悬停时按钮的背景色 */
+}
+
+/* 视频容器样式 */
+.videoView {
+    display: flex;
+    flex-direction: column; /* 元素纵向排列 */
+    align-items: center; /* 水平居中 */
+    justify-content: center; /* 垂直居中 */
+    gap: 10px; /* 按钮和视频的间距 */
+}
+
+#webcam {
+    width: 450px !important;
+    height: 300px !important;
+    position: absolute;
+    top: -250px !important;
+    right: 250px !important;
+} 
+.output_canvas {
+    transform: rotateY(180deg);
+    -webkit-transform: rotateY(180deg);
+    -moz-transform: rotateY(180deg);
+    position: absolute;
+    width: 450px !important;
+    height: 300px !important; 
+    top: -250px !important; 
+    right: 250px !important;
+}

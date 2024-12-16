@@ -57,3 +57,23 @@
 别的实现思路，保证可操作性强的前提下，使用例如AI等技术辅助生成
 变声期数据集的可行性及收集思路
 转码的经验，对于领域的见解
+
+#webcam {
+    width: 450px !important; /* 调整视频宽度 */
+    height: 300px !important; /* 调整视频高度 */
+    position: absolute !important; /* 绝对定位 */
+    top: -250px !important; /* 距离顶部50px */
+    right: 250px !important; /* 距离左侧100px */
+    border-radius: 10px !important; /* 圆角效果 */
+    transform: rotateY(180deg) !important; /* 保持翻转方向 */
+} 
+
+#output_canvas {
+    width: 400px; /* 与视频同步宽度 */
+    height: 300px; /* 与视频同步高度 */
+    position: absolute; /* 绝对定位 */
+    top: 50px; /* 保证与视频位置一致 */
+    left: 100px; /* 保证与视频位置一致 */
+    transform: rotateY(180deg); /* 翻转画面 */
+    pointer-events: none; /* 避免干扰鼠标事件 */
+}

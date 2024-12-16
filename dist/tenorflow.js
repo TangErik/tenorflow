@@ -1,7 +1,10 @@
+// import { WebSocketServer } from "ws";
+
 /** @type {import("@grame/faustwasm").FaustAudioWorkletNode} */
 let faustNode = null;  // 在全局作用域定义 faustNode
 let currentParams = [];
 
+// import (WebSocketServer);
 /**
  * @typedef {import("./types").FaustDspDistribution} FaustDspDistribution
  * @typedef {import("./faustwasm").FaustAudioWorkletNode} FaustAudioWorkletNode
@@ -35,6 +38,7 @@ audioContext.suspend();
 /**
  * @param {FaustAudioWorkletNode} faustNode 
  */
+
 const buildAudioDeviceMenu = async (faustNode) => {
     /** @type {MediaStreamAudioSourceNode} */
     let inputStreamNode;
@@ -347,8 +351,6 @@ timeSlider.addEventListener('input', () => {
     timeValue.textContent = timeSlider.value;
 });
 
-
-
 const bindButtons = (faustNode, faustUI) => {
     ['i', 'y', 'ɨ', 'ʉ', 'w', 'u', 
      'e', 'ø', 'ɘ', 'ɵ', 'ɤ', 'o', 
@@ -459,7 +461,7 @@ window.addEventListener('mouseup', handleMouseup);
 });
 */
 (async () => {
-    const { faustNode: localFaustNode, dspMeta: { name } } = await createFaustNode(audioContext, "tenorflow", 8);
+    const { faustNode: localFaustNode, dspMeta: { name } } = await createFaustNode(audioContext, "tenorflow");
     faustNode = localFaustNode;  // 初始化全局的 faustNode
     const faustUI = await createFaustUI(faustNode);
     faustNode.connect(audioContext.destination);
@@ -479,4 +481,3 @@ window.addEventListener('mouseup', handleMouseup);
     requestAnimationFrame(raf);
     bindButtons(faustNode, faustUI);
 })();
-

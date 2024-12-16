@@ -8,6 +8,10 @@
     <title>Faust DSP</title>
     <link rel="stylesheet" href="./faust-ui/index.css">
     <link rel="stylesheet" href="style.css">
+    <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -24,6 +28,9 @@
             <span id="dsp-switch">
                 <button id="button-dsp">Activate DSP</button>
             </span>
+        </div>
+        <div id="div-faust-ui">
+            <div id="synthesizer-container"></div>
         </div>
         <div class="trapezoid"> 
             <div id="vowel">
@@ -53,32 +60,33 @@
                 <button id="a-button">a</button>
                 <button id="ɒ-button">ɒ</button>
             </div>
-            <div class="line diagonal1"></div>
-            <div class="line horizontal1"></div>
-            <div class="line horizontal2"></div> 
-            <div class="text-boxes">
-                <div class="text-box" id="text1">Close|Front</div>
-                <div class="text-box" id="text2">Close-Mid</div>
-                <div class="text-box" id="text3">Open-Mid</div>
-                <div class="text-box" id="text4">Open</div>
-                <div class="text-box" id="text5">Mid</div>
-                <div class="text-box" id="text6">Back</div>
-            </div>      
-                <label for="time-slider">Time Duration:</label>
-                <input type="range" id="time-slider" min="0" max="5" step="0.1" value="1">
-                <span id="time-value">1</span>
-                <video id="video" width="640" height="480" autoplay></video>
-        </div>
-        <div id="div-faust-ui">
-            <div id="synthesizer-container">
+        <div class="line diagonal1"></div>
+        <div class="line horizontal1"></div>
+        <div class="line horizontal2"></div> 
+        <div class="text-boxes">
+            <div class="text-box" id="text1">Close|Front</div>
+            <div class="text-box" id="text2">Close-Mid</div>
+            <div class="text-box" id="text3">Open-Mid</div>
+            <div class="text-box" id="text4">Open</div>
+            <div class="text-box" id="text5">Mid</div>
+            <div class="text-box" id="text6">Back</div>
+        </div>      
+        <label for="time-slider">Time Duration:</label>
+        <input type="range" id="time-slider" min="0" max="5" step="0.1" value="1">
+        <span id="time-value">1</span>
+        <div id="liveView" class="videoView">
+            <button id="webcamButton" class="mdc-button mdc-button--raised">
+                <span class="mdc-button__ripple"></span>
+                <span class="mdc-button__label">ENABLE WEBCAM</span>
+            </button>
+            <div style="position: relative">
+            <video id="webcam" autoplay playsinline></video>
+            <canvas class="output_canvas" id="output_canvas"></canvas>
+            </div>
         </div>
     </div>
-    <script src="./tenorflow.js"></script>   
-    <!-- 引入 TensorFlow.js -->
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
-    <!-- 引入 Handtrack.js -->
-    <script src="https://cdn.jsdelivr.net/npm/handtrackjs@0.0.6/dist/handtrack.min.js"></script>
-    <script src="./handtrack.js"></script>
+    <script type="module" src="./tenorflow.js"></script>   
+    <script type="module" src="./handtrack.js"></script>
 </body>
 
 </html>
