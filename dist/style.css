@@ -32,67 +32,257 @@ body, html {
     border-left: 480px solid transparent; /* 原左边透明宽度240px，增加一倍 */
     border-right: 60px solid transparent; /* 原右边透明宽度30px，增加一倍 */
     position: relative;
-    order: 2; 
-    top: 120px; 
-    left: 670px; /* 原左偏移1170px，左移200px，即1170px - 200px */
+    order: 2;
+    margin-top: 120px;
+    margin-left: 670px;
 }
 
-#U-button {
+#i-button {
     position: absolute;
-    bottom: 595px; /* 上移后的值 */
-    right: -115px; /* 545px - 600px */
+    bottom: 555px; 
+    right: 900px;
     z-index: 10;
-    transform: scale(2); /* 放大一倍 */
+    transform: scale(2);
 }
 
-#A-button {
+#y-button {
     position: absolute;
-    bottom: -50px; /* 上移后的值 */
-    right: -55px; /* 608px - 600px */
+    bottom: 555px;
+    right: 847px;
     z-index: 10;
-    transform: scale(2); /* 放大一倍 */
+    transform: scale(2);
 }
 
-#I-button {
+#ɨ-button {
     position: absolute;
-    bottom: 600px; /* 上移后的值 */
-    right: 905px; /* 1575px - 600px */
+    bottom: 555px;
+    right: 425px;
     z-index: 10;
-    transform: scale(2); /* 放大一倍 */
+    transform: scale(2);
 }
 
-#E-button {
+#ʉ-button {
     position: absolute;
-    bottom: 355px; /* 上移后的值 */
-    right: 740px; /* 1420px - 600px */
+    bottom: 555px;
+    right: 372px;
     z-index: 10;
-    transform: scale(2); /* 放大一倍 */
+    transform: scale(2);
 }
 
-#O-button {
+#w-button {
     position: absolute;
-    bottom: 356px; /* 上移后的值 */
-    right: -100px; /* 565px - 600px */
+    bottom: 555px;
+    right: -53px;
     z-index: 10;
-    transform: scale(2); /* 放大一倍 */
+    transform: scale(2);
 }
 
-#AA-button {
+#u-button {
     position: absolute;
-    bottom: -50px; /* 上移后的值 */
-    right: 410px; /* 1100px - 600px */
+    bottom: 555px;
+    right: -105px;
     z-index: 10;
-    transform: scale(2); /* 放大一倍 */
+    transform: scale(2);
+}
+
+#e-button {
+    position: absolute;
+    bottom: 350px;
+    right: 735px;
+    z-index: 10;
+    transform: scale(2);
+}
+
+#ø-button {
+    position: absolute;
+    bottom: 350px;
+    right: 681px;
+    z-index: 10;
+    transform: scale(2);
+}
+
+#ɘ-button {
+    position: absolute;
+    bottom: 350px;
+    right: 350px;
+    z-index: 10;
+    transform: scale(2);
+}
+
+#ɵ-button {
+    position: absolute;
+    bottom: 350px;
+    right: 297px;
+    z-index: 10;
+    transform: scale(2);
+}
+
+#ɤ-button {
+    position: absolute;
+    bottom: 350px;
+    right: -45px;
+    z-index: 10;
+    transform: scale(2);
+}
+
+#o-button {
+    position: absolute;
+    bottom: 351px;
+    right: -98px;
+    z-index: 10;
+    transform: scale(2);
+}
+
+#ə-button {
+    position: absolute;
+    bottom: 260px;
+    right: 280px;
+    z-index: 10;
+    transform: scale(2);
+}
+
+#ɛ-button {
+    position: absolute;
+    bottom: 150px;
+    right: 575px;
+    z-index: 10;
+    transform: scale(2);
+}
+
+#œ-button {
+    position: absolute;
+    bottom: 150px;
+    right: 513px;
+    z-index: 10;
+    transform: scale(2);
+}
+
+#ɜ-button {
+    position: absolute;
+    bottom: 150px;
+    right: 280px;
+    z-index: 10;
+    transform: scale(2);
+}
+
+#ɞ-button {
+    position: absolute;
+    bottom: 150px;
+    right: 230px;
+    z-index: 10;
+    transform: scale(2);
+}
+
+#ʌ-button {
+    position: absolute;
+    bottom: 150px;
+    right: -25px;
+    z-index: 10;
+    transform: scale(2);
+}
+
+#ɔ-button {
+    position: absolute;
+    bottom: 151px;
+    right: -75px;
+    z-index: 10;
+    transform: scale(2);
+}
+
+#æ-button {
+    position: absolute;
+    bottom: 30px;
+    right: 475px;
+    z-index: 10;
+    transform: scale(2);
+}
+
+#ɐ-button {
+    position: absolute;
+    bottom: 90px;
+    right: 235px;
+    z-index: 10;
+    transform: scale(2);
+}
+
+#aa-button {
+    position: absolute;
+    bottom: -50px;
+    right: 420px;
+    z-index: 10;
+    transform: scale(2);
+}
+
+#ɶ-button {
+    position: absolute;
+    bottom: -50px;
+    right: 363px;
+    z-index: 10;
+    transform: scale(2);
+}
+
+#a-button {
+    position: absolute;
+    bottom: -50px;
+    right: -5px;
+    z-index: 10;
+    transform: scale(2);
+}
+
+#ɒ-button {
+    position: absolute;
+    bottom: -49px;
+    right: -55px;
+    z-index: 10;
+    transform: scale(2);
 }
 
 #synthesizer-container {
     position: static;
 }
 
+.vertical-container {
+    display: flex;
+    flex-direction: row;
+}
+
 #div-faust-ui {
-    position: relative; /* 保持相对定位 */
-    left: -550px; /* 向右偏移10px */
-    top: 5px; /* 向下偏移5px */
+    position: absolute;
+    bottom: 0px !important;
+}
+
+label {
+    font-size: 16px;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+input[type="range"] {
+    width: 300px;
+    height: 10px;
+    background: #ddd;
+    border-radius: 5px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #4CAF50;
+    cursor: pointer;
+}
+
+#time-value {
+    font-size: 16px;
+    margin-left: 10px;
+}
+
+label, input[type="range"], #time-value {
+    position: relative;  /* 允许使用top、left偏移 */
+    top: -700px;         /* 向上移动500px */
+    right: 580px;
 }
 
 .line {
@@ -150,7 +340,7 @@ body, html {
 
 /* 单独定位每个文本框 */
 #text1 {
-    top: -653px;
+    top: -654px;
     left: -485px;
 }
 
@@ -167,6 +357,16 @@ body, html {
 #text4 {
     top: -52px;
     left: -2px;
+}
+
+#text5 {
+    top: -654px;
+    left: -45px;
+}
+
+#text6 {
+    top: -654px;
+    left: 370px;
 }
 
 #vowel {
@@ -194,7 +394,7 @@ body, html {
 
 /* 鼠标悬停效果 */
 #vowel > button:hover {
-    transform: scale(1.5); /* 悬停时恢复为正常大小 */
+    transform: scale(1.05); /* 悬停时恢复为正常大小 */
     background: linear-gradient(90deg, #3697ff, #66b2ff); /* 渐变变浅 */
     border-color: #73b2f5; /* 悬停时边框变亮 */
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* 增强阴影 */
@@ -202,7 +402,6 @@ body, html {
 
 /* 鼠标按下效果 */
 #vowel > button:active {
-    transform: scale(0.95); /* 按下时略微缩小 */
     background: linear-gradient(90deg, #67c2ff, #007bff); /* 按下背景加深 */
     box-shadow: 0 3px 6px rgba(255, 221, 221, 0.2); /* 减弱阴影 */
 }
@@ -213,4 +412,125 @@ body, html {
     box-shadow: 0 0 10px 3px rgba(147, 199, 255, 0.7); /* 添加蓝色光晕 */
 }
 
+video {
+    clear: both;
+    display: block;
+    transform: rotateY(180deg);
+    -webkit-transform: rotateY(180deg);
+    -moz-transform: rotateY(180deg);
+}
 
+section {
+    opacity: 1;
+    transition: opacity 500ms ease-in-out;
+}
+
+header,
+footer {
+    clear: both;
+}
+
+.removed {
+    display: none;
+}
+
+.invisible {
+    opacity: 0.2;
+}
+
+.note {
+    font-style: italic;
+    font-size: 130%;
+}
+
+.videoView,
+.detectOnClick {
+    position: relative;
+    float: left;
+    width: 48%;
+    margin: 2% 1%;
+    cursor: pointer;
+}
+
+.videoView p,
+.detectOnClick p {
+    position: absolute;
+    padding: 5px;
+    background-color: #007f8b;
+    color: #fff;
+    border: 1px dashed rgba(255, 255, 255, 0.7);
+    z-index: 2;
+    font-size: 12px;
+    margin: 0;
+}
+
+.highlighter {
+    background: rgba(0, 255, 0, 0.25);
+    border: 1px dashed #fff;
+    z-index: 1;
+    position: absolute;
+}
+
+.canvas {
+    z-index: 1;
+    position: absolute;
+    pointer-events: none;
+    top: -250px !important;
+    right: 250px !important;
+}
+
+
+
+.detectOnClick {
+    z-index: 0;
+}
+
+.detectOnClick img {
+    width: 100%;
+}
+
+/* 按钮样式 */
+#webcamButton {
+    position: relative; /* 相对定位，便于调整位置 */
+    margin-bottom: 20px; /* 和视频之间的间距 */
+    padding: 10px 20px; /* 内边距，控制按钮大小 */
+    font-size: 16px; /* 按钮文字大小 */
+    background-color: #6200ee; /* 按钮背景色 */
+    color: #ffffff; /* 按钮文字颜色 */
+    border: none; /* 移除边框 */
+    border-radius: 5px; /* 圆角效果 */
+    cursor: pointer; /* 鼠标移入变为手型 */
+    right: 520px;
+    top: -260px;
+}
+
+#webcamButton:hover {
+    background-color: #3700b3; /* 悬停时按钮的背景色 */
+}
+
+/* 视频容器样式 */
+.videoView {
+    display: flex;
+    flex-direction: column; /* 元素纵向排列 */
+    align-items: center; /* 水平居中 */
+    justify-content: center; /* 垂直居中 */
+    gap: 10px; /* 按钮和视频的间距 */
+}
+
+#webcam {
+    width: 430px !important;
+    height: 330px !important;
+    position: absolute;
+    top: -290px !important;
+    right: 320px !important;
+} 
+.output_canvas {
+    transform: rotateY(180deg);
+    -webkit-transform: rotateY(180deg);
+    -moz-transform: rotateY(180deg);
+    position: absolute;
+    width: 450px !important;
+    height: 300px !important; 
+    top: -250px !important; 
+    right: 250px !important;
+}

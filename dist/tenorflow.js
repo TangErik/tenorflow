@@ -1,3 +1,4 @@
+/** @type {import("@grame/faustwasm").FaustAudioWorkletNode} */
 let faustNode = null;  // 在全局作用域定义 faustNode
 let currentParams = [];
 
@@ -34,6 +35,7 @@ audioContext.suspend();
 /**
  * @param {FaustAudioWorkletNode} faustNode 
  */
+
 const buildAudioDeviceMenu = async (faustNode) => {
     /** @type {MediaStreamAudioSourceNode} */
     let inputStreamNode;
@@ -130,7 +132,7 @@ $buttonDsp.onclick = () => {
  * @param {string} dspName - The name of the DSP to be loaded.
  * @param {number} voices - The number of voices to be used for polyphonic DSPs.
  * @param {boolean} sp - Whether to create a ScriptProcessorNode instead of an AudioWorkletNode.
- * @returns {Object} - An object containing the Faust audio node and the DSP metadata.
+ * @returns {Promise<{ faustNode: import("@grame/faustwasm").FaustAudioWorkletNode; dspMeta: import("@grame/faustwasm").FaustDspMeta }> }} - An object containing the Faust audio node and the DSP metadata.
  */
 const createFaustNode = async (audioContext, dspName = "template", voices = 0, sp = false) => {
     // Import necessary Faust modules and data
@@ -183,12 +185,9 @@ const createFaustUI = async (faustNode) => {
     const { FaustUI } = await import("./faust-ui/index.js");
     const $container = document.createElement("div");
     $container.style.margin = "0";
-    $container.style.position = "absolute";
     $container.style.overflow = "auto";
     $container.style.display = "flex";
     $container.style.flexDirection = "column";
-    $container.style.width = "100%";
-    $container.style.height = "100%";
     $divFaustUI.appendChild($container);
     /** @type {import("@shren/faust-ui").FaustUI} */
     const faustUI = new FaustUI({
@@ -199,51 +198,159 @@ const createFaustUI = async (faustNode) => {
     });
     faustUI.paramChangeByUI = (path, value) => faustNode.setParamValue(path, value);
     faustNode.setOutputParamHandler((path, value) => faustUI.paramChangeByDSP(path, value));
-    $container.style.minWidth = `${faustUI.minWidth}px`;
-    $container.style.minHeight = `${faustUI.minHeight}px`;
+    // $container.style.minWidth = `${faustUI.minWidth}px`;
+    // $container.style.minHeight = `${faustUI.minHeight}px`;
     faustUI.resize();
     return faustUI;
 };
 
 const FORMANT_DATA = {
-    A: {
-        freq: [650, 1080, 2650, 2900, 3250],
-        bandwidth: [50, 90, 120, 130, 140],
-        gain: [1, 0.5, 0.44, 0.39, 0.07]
+    "i": {
+        "freq": [240, 2400, 3300, 2800, 3100, 3400, 3500],
+        "bandwidth": [60, 90, 120, 120, 120, 120, 120],
+        "gain": [1, 0.5, 0.3, 0.25, 0.25, 0.25, 0.25]
     },
-    AA:{
-        freq: [900, 1300, 2500, 2700, 3250],
-        bandwidth: [150, 150, 120, 130, 140],
-        gain: [1, 0.5, 0.44, 0.39, 0.07]
+    "y": {
+        "freq": [240, 2000, 2500, 2800, 3100, 3400, 3500],
+        "bandwidth": [60, 80, 120, 120, 120, 120, 120],
+        "gain": [1, 0.4, 0.3, 0.25, 0.25, 0.25, 0.25]
     },
-    U: {
-        freq: [400, 500, 2700, 2900, 3300],
-        bandwidth: [40, 60, 100, 120, 120],
-        gain: [1, 0.1, 0.14, 0.19, 0.05]
+    "ɨ": {
+        "freq": [300, 1700, 2400, 2800, 3100, 3400, 3500],
+        "bandwidth": [70, 80, 120, 120, 120, 120, 120],
+        "gain": [1, 0.4, 0.2, 0.25, 0.25, 0.25, 0.25]
     },
-    I: {
-        freq: [180, 2340, 2900, 3250, 3540],
-        bandwidth: [40, 90, 100, 120, 120],
-        gain: [1, 0.17, 0.12, 0.1, 0.03]
+    "ʉ": {
+        "freq": [325, 1700, 2300, 2800, 3100, 3400, 3500],
+        "bandwidth": [70, 90, 120, 120, 120, 120, 120],
+        "gain": [1, 0.3, 0.2, 0.25, 0.25, 0.25, 0.25]
     },
-    E: {
-        freq: [600, 2000, 2600, 3200, 3580],
-        bandwidth: [70, 80, 100, 120, 120],
-        gain: [1, 0.2, 0.25, 0.2, 0.1]
+    "w": {
+        "freq": [370, 1300, 2500, 2800, 3100, 3400, 3500],
+        "bandwidth": [80, 100, 120, 120, 120, 120, 120],
+        "gain": [1, 0.4, 0.3, 0.25, 0.25, 0.25, 0.25]
     },
-    O: {
-        freq: [600, 900, 2600, 2800, 3000],
-        bandwidth: [70, 80, 100, 130, 135],
-        gain: [1, 0.31, 0.25, 0.25, 0.05]
+    "u": {
+        "freq": [290, 540, 740, 2800, 3100, 3400, 3500],
+        "bandwidth": [80, 100, 120, 120, 120, 120, 120],
+        "gain": [1, 0.4, 0.3, 0.25, 0.25, 0.25, 0.25]
     },
+    "ɛ": {
+        "freq": [560, 2300, 3000, 2800, 3100, 3400, 3500],
+        "bandwidth": [70, 90, 120, 120, 120, 120, 120],
+        "gain": [1, 0.5, 0.3, 0.25, 0.25, 0.25, 0.25]
+    },
+    "ø": {
+        "freq": [400, 2000, 2500, 2800, 3100, 3400, 3500],
+        "bandwidth": [70, 90, 120, 120, 120, 120, 120],
+        "gain": [1, 0.4, 0.3, 0.25, 0.25, 0.25, 0.25]
+    },
+    "ɘ": {
+        "freq": [450, 1750, 2400, 2800, 3100, 3400, 3500],
+        "bandwidth": [70, 90, 120, 120, 120, 120, 120],
+        "gain": [1, 0.3, 0.2, 0.25, 0.25, 0.25, 0.25]
+    },
+    "ɵ": {
+        "freq": [450, 1500, 2300, 2800, 3100, 3400, 3500],
+        "bandwidth": [80, 100, 120, 120, 120, 120, 120],
+        "gain": [1, 0.3, 0.2, 0.25, 0.25, 0.25, 0.25]
+    },
+    "ɤ": {
+        "freq": [550, 1200, 2500, 2800, 3100, 3400, 3500],
+        "bandwidth": [90, 110, 120, 120, 120, 120, 120],
+        "gain": [1, 0.3, 0.2, 0.25, 0.25, 0.25, 0.25]
+    },
+    "o": {
+        "freq": [450, 720, 800, 2800, 3100, 3400, 3500],
+        "bandwidth": [90, 110, 120, 120, 120, 120, 120],
+        "gain": [1, 0.3, 0.2, 0.25, 0.25, 0.25, 0.25]
+    },
+    "ə": {
+        "freq": [500, 1500, 2500, 2800, 3100, 3400, 3500],
+        "bandwidth": [80, 100, 120, 120, 120, 120, 120],
+        "gain": [1, 0.4, 0.3, 0.25, 0.25, 0.25, 0.25]
+    },
+    "e": {
+        "freq": [550, 1850, 2500, 2800, 3100, 3400, 3500],
+        "bandwidth": [80, 100, 120, 120, 120, 120, 120],
+        "gain": [1, 0.5, 0.3, 0.25, 0.25, 0.25, 0.25]
+    },
+    "œ": {
+        "freq": [550, 1500, 2500, 2800, 3100, 3400, 3500],
+        "bandwidth": [90, 110, 120, 120, 120, 120, 120],
+        "gain": [1, 0.4, 0.3, 0.25, 0.25, 0.25, 0.25]
+    },
+    "ɜ": {
+        "freq": [600, 1600, 2500, 2800, 3100, 3400, 3500],
+        "bandwidth": [80, 100, 120, 120, 120, 120, 120],
+        "gain": [1, 0.5, 0.3, 0.25, 0.25, 0.25, 0.25]
+    },
+    "ɞ": {
+        "freq": [600, 1400, 2500, 2800, 3100, 3400, 3500],
+        "bandwidth": [80, 100, 120, 120, 120, 120, 120],
+        "gain": [1, 0.4, 0.3, 0.25, 0.25, 0.25, 0.25]
+    },
+    "ʌ": {
+        "freq": [600, 1200, 2500, 2800, 3100, 3400, 3500],
+        "bandwidth": [80, 100, 120, 120, 120, 120, 120],
+        "gain": [1, 0.4, 0.3, 0.25, 0.25, 0.25, 0.25]
+    },
+    "ɔ": {
+        "freq": [600, 800, 1000, 2800, 3100, 3400, 3500],
+        "bandwidth": [90, 110, 120, 120, 120, 120, 120],
+        "gain": [1, 0.4, 0.3, 0.25, 0.25, 0.25, 0.25]
+    },
+    "æ": {
+        "freq": [700, 2300, 2500, 2800, 3100, 3400, 3500],
+        "bandwidth": [100, 120, 140, 120, 120, 120, 120],
+        "gain": [1, 0.4, 0.3, 0.25, 0.25, 0.25, 0.25]
+    },
+    "ɐ": {
+        "freq": [750, 1300, 2500, 2800, 3100, 3400, 3500],
+        "bandwidth": [100, 120, 140, 120, 120, 120, 120],
+        "gain": [1, 0.3, 0.2, 0.25, 0.25, 0.25, 0.25]
+    },
+    "aa": {
+        "freq": [1000, 1280, 2500, 2800, 3100, 3400, 3500],
+        "bandwidth": [110, 130, 150, 120, 120, 120, 120],
+        "gain": [1, 0.5, 0.3, 0.25, 0.25, 0.25, 0.25]
+    },
+    "ɶ": {
+        "freq": [800, 1400, 2500, 2800, 3100, 3400, 3500],
+        "bandwidth": [110, 130, 150, 120, 120, 120, 120],
+        "gain": [1, 0.4, 0.3, 0.25, 0.25, 0.25, 0.25]
+    },
+    "a": {
+        "freq": [850, 900, 2500, 2800, 3100, 3400, 3500],
+        "bandwidth": [110, 130, 150, 120, 120, 120, 120],
+        "gain": [1, 0.3, 0.2, 0.25, 0.25, 0.25, 0.25]
+    },
+    "ɒ": {
+        "freq": [650, 900, 900, 2800, 3100, 3400, 3500],
+        "bandwidth": [110, 130, 150, 120, 120, 120, 120],
+        "gain": [1, 0.3, 0.2, 0.25, 0.25, 0.25, 0.25]
+    }
 };
 
 /**
  * @param {import("./faustwasm/index").FaustAudioWorkletNode} faustNode
  * @param {import("@shren/faust-ui").FaustUI} faustUI
  **/
+// 获取滑条和显示的值
+const timeSlider = document.getElementById('time-slider');
+const timeValue = document.getElementById('time-value');
+
+// 监听滑条变化，更新时间显示
+timeSlider.addEventListener('input', () => {
+    timeValue.textContent = timeSlider.value;
+});
+
 const bindButtons = (faustNode, faustUI) => {
-    ['A', 'AA', 'E', 'I', 'O', 'U'].forEach(vowel => {
+    ['i', 'y', 'ɨ', 'ʉ', 'w', 'u', 
+     'e', 'ø', 'ɘ', 'ɵ', 'ɤ', 'o', 
+     'ə', 'ɛ', 'œ', 'ɜ', 'ɞ', 'ʌ', 
+     'ɔ', 'æ', 'ɐ', 'aa', 'ɶ', 'a', 
+     'ɒ'].forEach(vowel => {
         document.getElementById(vowel + '-button').addEventListener('click', () => {
             if (currentParams.length) {
                 const previousParams = [...currentParams];
@@ -253,7 +360,8 @@ const bindButtons = (faustNode, faustUI) => {
                         const paramName = `/tenorflow/formants/formant_${index}/${paramType.charAt(0).toUpperCase() + paramType.slice(1)}_${index}`;
                         faustNode.parameters.get(paramName).cancelAndHoldAtTime(audioContext.currentTime);
                         faustNode.parameters.get(paramName).value = faustNode.parameters.get(paramName).value;
-                        faustNode.parameters.get(paramName).linearRampToValueAtTime(value, audioContext.currentTime + 1);
+                        // faustNode.parameters.get(paramName).linearRampToValueAtTime(value, audioContext.currentTime);
+                        faustNode.parameters.get(paramName).linearRampToValueAtTime(value, audioContext.currentTime + parseFloat(timeSlider.value));
                         // faustNode.setParamValue(paramName, value);
                         // faustUI.paramChangeByDSP(paramName, value);
                     });
@@ -294,70 +402,50 @@ const bindButtons = (faustNode, faustUI) => {
     });
 };
 
-// 获取按钮元素
-// const button = document.getElementById('tenorflow/1/t');
-
-
-/*
-const buttonsPosition = {
-    A: [400, 400],
-    E: [400, 400],
-    I: [400, 400],
-    O: [400, 400],
-    U: [400, 400]
-};
-const buttonA = document.getElementById('A-button');
-buttonA.style.marginLeft = buttonsPosition.A[0];
-buttonA.style.marginTop = buttonsPosition.A[1];
-
-const draggable = document.getElementById('draggable');
-draggable.addEventListener('mousedown', (e) => {
-const handleMousemove = (e) => {
-    const x = e.clientX;
-    const y = e.clientY;
-    draggable.style.left = x + "px";
-    draggable.style.top = y + "px";
-    const factor = [
-        1 / Math.sqrt((x - buttonsPosition.A[0]) ** 2 + (y - buttonsPosition.A[1]) ** 2),
-        1 / Math.sqrt((x - buttonsPosition.E[0]) ** 2 + (y - buttonsPosition.E[1]) ** 2),
-        1 / Math.sqrt((x - buttonsPosition.I[0]) ** 2 + (y - buttonsPosition.I[1]) ** 2),
-        1 / Math.sqrt((x - buttonsPosition.O[0]) ** 2 + (y - buttonsPosition.O[1]) ** 2),
-        1 / Math.sqrt((x - buttonsPosition.U[0]) ** 2 + (y - buttonsPosition.U[1]) ** 2),
-    ];
-    const sum = factor.reduce((sum, cur) => sum + cur, 0);
-    const weights = factor.map(x => x / sum);
-    ['bandwidth', 'freq', 'gain'].forEach(paramType => {
-        const blendedParams = [0, 0, 0, 0, 0];
-        for (let i = 0; i < 5; i++) {
-            blendedParams[i] = FORMANT_DATA.A[paramType][i] * weights[0] + FORMANT_DATA.E[paramType][i] * weights[1] + FORMANT_DATA.I[paramType][i] * weights[2] + FORMANT_DATA.O[paramType][i] * weights[3] + FORMANT_DATA.U[paramType][i] * weights[4];
-        }
-        blendedParams.forEach((value, index) => {
-            const paramName = `/tenorflow/formants/formant_${index}/${paramType.charAt(0).toUpperCase() + paramType.slice(1)}_${index}`;
-            faustNode.setParamValue(paramName, value);
-            faustUI.paramChangeByDSP(paramName, value);
-        });
-    });
-};
-const handleMouseup = (e) => {
-window.removeEventListener('mousemove', handleMousemove);
-window.removeEventListener('mouseup', handleMouseup);
-}
-window.addEventListener('mousemove', handleMousemove);
-window.addEventListener('mouseup', handleMouseup);
-});
-*/
-
 (async () => {
-    const { faustNode: localFaustNode, dspMeta: { name } } = await createFaustNode(audioContext, "tenorflow");
-    faustNode = localFaustNode;  // 初始化全局的 faustNode
+    const urlParams = new URLSearchParams(location.search);
+    let voice = +(urlParams.get("v") ?? 0);
+
+    // 获取按钮元素
+    const toggleVoiceButton = document.getElementById("toggleVoice");
+    const updateButtonText = () => {
+        toggleVoiceButton.textContent = voice === 0 ? "当前模式: 单音 (Mono)" : "当前模式: 多音 (Poly)";
+    };
+
+    // 初始化按钮文本
+    updateButtonText();
+
+    // 按钮点击事件：切换模式并刷新页面
+    toggleVoiceButton.addEventListener("click", () => {
+        voice = voice === 0 ? 8 : 0; // 切换 voice 参数
+        urlParams.set("v", voice);
+
+        // 更新 URL 并刷新页面
+        window.location.search = urlParams.toString();
+    });
+
+    // 初始化 Faust 节点
+    const { faustNode, dspMeta: { name } } = await createFaustNode(audioContext, "tenorflow", voice);
+    window.faustNode = faustNode;  
     const faustUI = await createFaustUI(faustNode);
     faustNode.connect(audioContext.destination);
+
     if (faustNode.numberOfInputs) await buildAudioDeviceMenu(faustNode);
     else $spanAudioInput.hidden = true;
+
     if (navigator.requestMIDIAccess) await buildMidiDeviceMenu(faustNode);
     else $spanMidiInput.hidden = true;
+
     $buttonDsp.disabled = false;
     document.title = name;
+
+    const raf = () => {
+        faustNode.getParams().forEach((paramName) => {
+            faustUI.paramChangeByDSP(paramName, faustNode.getParamValue(paramName));
+        });
+        requestAnimationFrame(raf);
+    };
+    requestAnimationFrame(raf);
     bindButtons(faustNode, faustUI);
 })();
 
