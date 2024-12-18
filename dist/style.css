@@ -32,9 +32,9 @@ body, html {
     border-left: 480px solid transparent; /* 原左边透明宽度240px，增加一倍 */
     border-right: 60px solid transparent; /* 原右边透明宽度30px，增加一倍 */
     position: relative;
-    order: 2; 
-    top: 120px; 
-    left: 670px; /* 原左偏移1170px，左移200px，即1170px - 200px */
+    order: 2;
+    margin-top: 120px;
+    margin-left: 670px;
 }
 
 #i-button {
@@ -241,10 +241,14 @@ body, html {
     position: static;
 }
 
+.vertical-container {
+    display: flex;
+    flex-direction: row;
+}
+
 #div-faust-ui {
-    position: relative; /* 保持相对定位 */
-    left: -550px; /* 向右偏移10px */
-    top: 5px; /* 向下偏移5px */
+    position: absolute;
+    bottom: 0px !important;
 }
 
 label {
@@ -496,8 +500,8 @@ footer {
     border: none; /* 移除边框 */
     border-radius: 5px; /* 圆角效果 */
     cursor: pointer; /* 鼠标移入变为手型 */
-    right: 575px;
-    top: -240px;
+    right: 520px;
+    top: -260px;
 }
 
 #webcamButton:hover {
@@ -514,11 +518,11 @@ footer {
 }
 
 #webcam {
-    width: 450px !important;
-    height: 300px !important;
+    width: 430px !important;
+    height: 330px !important;
     position: absolute;
-    top: -250px !important;
-    right: 250px !important;
+    top: -290px !important;
+    right: 320px !important;
 } 
 .output_canvas {
     transform: rotateY(180deg);

@@ -185,12 +185,9 @@ const createFaustUI = async (faustNode) => {
     const { FaustUI } = await import("./faust-ui/index.js");
     const $container = document.createElement("div");
     $container.style.margin = "0";
-    $container.style.position = "absolute";
     $container.style.overflow = "auto";
     $container.style.display = "flex";
     $container.style.flexDirection = "column";
-    $container.style.width = "100%";
-    $container.style.height = "100%";
     $divFaustUI.appendChild($container);
     /** @type {import("@shren/faust-ui").FaustUI} */
     const faustUI = new FaustUI({
@@ -201,8 +198,8 @@ const createFaustUI = async (faustNode) => {
     });
     faustUI.paramChangeByUI = (path, value) => faustNode.setParamValue(path, value);
     faustNode.setOutputParamHandler((path, value) => faustUI.paramChangeByDSP(path, value));
-    $container.style.minWidth = `${faustUI.minWidth}px`;
-    $container.style.minHeight = `${faustUI.minHeight}px`;
+    // $container.style.minWidth = `${faustUI.minWidth}px`;
+    // $container.style.minHeight = `${faustUI.minHeight}px`;
     faustUI.resize();
     return faustUI;
 };
@@ -406,17 +403,42 @@ const bindButtons = (faustNode, faustUI) => {
 };
 
 (async () => {
-    const { faustNode, dspMeta: { name } } = await createFaustNode(audioContext, "tenorflow");// 初始化全局的 faustNode
+    const urlParams = new URLSearchParams(location.search);
+    let voice = +(urlParams.get("v") ?? 0);
+
+    // 获取按钮元素
+    const toggleVoiceButton = document.getElementById("toggleVoice");
+    const updateButtonText = () => {
+        toggleVoiceButton.textContent = voice === 0 ? "当前模式: 单音 (Mono)" : "当前模式: 多音 (Poly)";
+    };
+
+    // 初始化按钮文本
+    updateButtonText();
+
+    // 按钮点击事件：切换模式并刷新页面
+    toggleVoiceButton.addEventListener("click", () => {
+        voice = voice === 0 ? 8 : 0; // 切换 voice 参数
+        urlParams.set("v", voice);
+
+        // 更新 URL 并刷新页面
+        window.location.search = urlParams.toString();
+    });
+
+    // 初始化 Faust 节点
+    const { faustNode, dspMeta: { name } } = await createFaustNode(audioContext, "tenorflow", voice);
     window.faustNode = faustNode;  
     const faustUI = await createFaustUI(faustNode);
     faustNode.connect(audioContext.destination);
+
     if (faustNode.numberOfInputs) await buildAudioDeviceMenu(faustNode);
     else $spanAudioInput.hidden = true;
+
     if (navigator.requestMIDIAccess) await buildMidiDeviceMenu(faustNode);
     else $spanMidiInput.hidden = true;
+
     $buttonDsp.disabled = false;
     document.title = name;
-    
+
     const raf = () => {
         faustNode.getParams().forEach((paramName) => {
             faustUI.paramChangeByDSP(paramName, faustNode.getParamValue(paramName));
@@ -426,3 +448,4 @@ const bindButtons = (faustNode, faustUI) => {
     requestAnimationFrame(raf);
     bindButtons(faustNode, faustUI);
 })();
+

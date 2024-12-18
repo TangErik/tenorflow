@@ -106,7 +106,23 @@ const mapYToFrequency = (y, minFreq, maxFreq, step) => {
     return Math.round(rawFreq / step) * step; // 调整到符合步长
 };
 
-// 使用食指指尖的 y 坐标控制频率
+const mapDistanceToRange = (distance, minValue, maxValue, maxDistance) => {
+    // 限制距离到 [0, maxDistance] 范围内
+    const clampedDistance = Math.min(Math.max(distance, 0), maxDistance);
+    // 映射到 [minValue, maxValue] 范围
+    return minValue + (clampedDistance / maxDistance) * (maxValue - minValue);
+};
+
+const mapHeightDifferenceToDepth = (difference, maxDepth) => {
+    return Math.max(0, Math.min(difference * 50, maxDepth)); // 放大系数50, 限制到maxDepth
+};
+
+// 假设最大可能手指距离是 0.2（根据实际情况调整）
+const MAX_HAND_DISTANCE = 0.3;
+
+let triggerActive = false; // 在 predictWebcam 函数外部定义全局状态变量
+const pinchThreshold = 0.05; // 拇指与食指捏紧阈值
+
 async function predictWebcam() {
     canvasElement.width = video.videoWidth;
     canvasElement.height = video.videoHeight;
@@ -119,57 +135,91 @@ async function predictWebcam() {
     let startTimeMs = performance.now();
     if (lastVideoTime !== video.currentTime) {
         lastVideoTime = video.currentTime;
-        results = handLandmarker.detectForVideo(video, startTimeMs);
+        results = await handLandmarker.detectForVideo(video, startTimeMs);
     }
 
     canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
+    canvasCtx.save(); // 保存 canvas 的状态
 
     if (results && results.landmarks) {
-        for (const landmarks of results.landmarks) {
-            // 获取食指指尖的 y 坐标
-            const fingerTipY = landmarks[8]?.y || null;
-            if (fingerTipY !== null) {
-                console.log("Index finger tip Y:", fingerTipY);
+        results.landmarks.forEach((landmarks, i) => {
+            if (i === 0) {
+                // 第一只手：原有控制逻辑
+                const fingerTipY = landmarks[8]?.y || null;
+                const thumbTip = landmarks[4];
+                const indexTip = landmarks[8];
 
-                // 映射 y 坐标到频率范围
-                const minFreq = 20; // 最低频率
-                const maxFreq = 500; // 最高频率
-                const step = 0.1;   // 步长
-                const frequency = mapYToFrequency(
-                    fingerTipY, // 直接使用 y 值
-                    minFreq,
-                    maxFreq,
-                    step
-                );
-                console.log("Mapped frequency:", frequency);
+                if (fingerTipY !== null) {
+                    const frequency = mapYToFrequency(fingerTipY, 20, 500, 0.1);
+                    console.log("Hand 1: Mapped frequency:", frequency);
 
-                // 更新 tenorflow 的 freq 参数
-                const paramName = "tenorflow/settings/Voice/freq";
-                if (window.faustNode) {
-                    if(window.faustNode.parameters.get("tenorflow/settings/Voice/freq")){
-                        console.log(window.faustNode.parameters.get("tenorflow/settings/Voice/freq"))
-                        // window.faustNode.parameters.get(paramName).value = frequency;
+                    const paramName = "/tenorflow/settings/Voice/freq";
+                    if (window.faustNode) {
+                        window.faustNode.parameters.get(paramName).value = frequency;
                     }
                 }
-            } else {
-                console.log("No index finger detected.");
+
+                if (thumbTip && indexTip) {
+                    const dx = thumbTip.x - indexTip.x;
+                    const dy = thumbTip.y - indexTip.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < pinchThreshold && !triggerActive) {
+                        triggerActive = true;
+                        console.log("Hand 1: Trigger ON");
+                        updateTrigger(1);
+                    } else if (distance >= pinchThreshold && triggerActive) {
+                        triggerActive = false;
+                        console.log("Hand 1: Trigger OFF");
+                        updateTrigger(0);
+                    }
+                }
+            } else if (i === 1) {
+                // 第二只手：Vibrato 控制逻辑
+                const vibratoDepthParam = "/tenorflow/2/vibrato/VibratoDepth";
+                const vibratoRateParam = "/tenorflow/2/vibrato/VibratoFreq";
+                const firstHandLandmarks = results.landmarks[0];
+                const secondHandLandmarks = results.landmarks[1];
+                const firstHandIndexY = firstHandLandmarks[8]?.y || null; // 第一只手食指高度
+                const secondHandIndexY = secondHandLandmarks[8]?.y || null; // 第二只手食指高度
+                const thumbTip = landmarks[4];
+                const indexTip = landmarks[8];
+
+                if (firstHandIndexY !== null && secondHandIndexY !== null) {
+                    const heightDifference = firstHandIndexY - secondHandIndexY;
+        
+                    // 如果第二只手高于第一只手，计算 VibratoDepth
+                    const vibratoDepth = mapHeightDifferenceToDepth(heightDifference, 100);
+                    if (window.faustNode) {
+                        window.faustNode.parameters.get(vibratoDepthParam).value = vibratoDepth;
+                    }
+                }
+
+                if (thumbTip && indexTip) {
+                    const dx = thumbTip.x - indexTip.x;
+                    const dy = thumbTip.y - indexTip.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    const vibratoRate = mapDistanceToRange(distance, 0, 20, MAX_HAND_DISTANCE);
+                    console.log("Hand 2: Vibrato Frequency:", vibratoRate);
+
+                    if (window.faustNode) {
+                        window.faustNode.parameters.get(vibratoRateParam).value = vibratoRate;
+                    }
+                }
             }
-        }
+        });
+    } else {
+        console.warn("No hands detected.");
     }
 
-    if (webcamRunning === true) {
+    if (webcamRunning) {
         window.requestAnimationFrame(predictWebcam);
     }
 }
 
-
-/*
-Object.keys(json).forEach((hand) => {
-    const pointsArray = Object.values(Object.values(json)[hand]);
-    for (let i = 0;i<pointsArray.length;i++) {
-      const point = pointsArray[i];
-      max.outlet(+hand, i, point["x"], point["y"], point["z"]);
-      // max.post(+hand, i, point["x"], point["y"], point["z"]);
+function updateTrigger(value) {
+    const paramName = "/tenorflow/1/trigger";
+    if (window.faustNode) {
+        window.faustNode.setParamValue(paramName, value);
     }
-});
-*/
+}
