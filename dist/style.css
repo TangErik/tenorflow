@@ -248,7 +248,7 @@ body, html {
 
 #div-faust-ui {
     position: absolute;
-    bottom: 0px !important;
+    bottom: -5px !important;
 }
 
 label {

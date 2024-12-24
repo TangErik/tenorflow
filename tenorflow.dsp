@@ -1,4 +1,5 @@
 import("stdfaust.lib");
+declare options "[midi:on]";
 
 // FormantsBank
 formantFs = par(i, 7, hslider("/h:formants/v:formant_%i/Freq_%i[style:knob]", 100, 0, 4000, 1));
@@ -11,7 +12,7 @@ formantFilterbank = par(i, 7, fi.resonbp(f, q, g) with {
 });
 
 // Breath
-wnoise = no.noise : fi.lowpass(2, freq * 3);
+wnoise = no.noise : fi.highpass(2, freq * 3);
 pnoise = no.pink_noise : fi.lowpass(2, freq * 2);
 breathType = hslider("/h:settings/v:Noise/breathType", 0, 0, 1, 1);
 selectedBreath = select2(breathType, wnoise, pnoise);
@@ -24,19 +25,21 @@ vibrato_freq = (vibrato_base_freq + 4 * no.noise) : si.smoo;
 vibrato = checkbox("/v:1/[1]Vibrato");
 vibrato_effect = os.osc(vibrato_freq + no.noise * 0.1) * vibrato_depth * vibrato;
 vibrato_jitter = hslider("/v:2/h:vibrato/VibratoJitter[style:knob]", 1, 0, 1, 0.1);
+
+bend = ba.semi2ratio(hslider("/v:2/h:vibrato/bend[style:knob][midi:pitchwheel]",0,-12,12,0.01)) : si.smoo;
 freq = hslider("/h:settings/v:Voice/freq", 150, 20, 500, 0.1) + vibrato_effect + no.noise * vibrato_jitter : si.smoo;
 
 // Envelop
 a = hslider("/v:2/h:envelop/[0]attack[style:knob]", 0.32, 0, 2, 0.01);
 d = hslider("/v:2/h:envelop/[1]decay[style:knob]", 0.26, 0, 8, 0.01);
-s = hslider("/v:2/h:envelop/[2]sustain[style:knob]", 0.83, 0, 1, 0.01);
+// s = hslider("/v:2/h:envelop/[2]sustain[style:knob][midi:ctrl 64]", 0, 0, 1, 0.01);
 r = hslider("/v:2/h:envelop/[3]release[style:knob]", 0.21, 0, 8, 0.01);
-t = button("/v:1/[2]trigger");
-envelop = en.adsr(a, d, s, r, gate);
+// t = button("/v:1/[2]trigger");
+envelop = en.adsr(a, d, sus, r, gate);
 
 // Reverb
 // dt = hslider("/v:2/h:reverb/h:reverb1/[0]dt[style:knob]", 1, 0.1, 60, 0.1);
-damp = hslider("/v:2/h:3/h:reverb/[2]damp[style:knob]", 0.5, 0, 1, 0.01);
+// damp = hslider("/v:2/h:3/h:reverb/[2]damp[style:knob]", 0.5, 0, 1, 0.01);
 // size = hslider("/v:2/h:reverb/h:reverb1/[2]size[style:knob]", 2, 0.5, 3, 0.1);
 // early_diff = hslider("/v:2/h:reverb/h:reverb1/[3]early_diff[style:knob]", 0.7, 0, 1, 0.1);
 // feedback = hslider("/v:2/h:reverb/h:reverb1/[4]feedback[style:knob]", 0, 0, 1, 0.1);
@@ -47,19 +50,22 @@ damp = hslider("/v:2/h:3/h:reverb/[2]damp[style:knob]", 0.5, 0, 1, 0.01);
 // high = hslider("/v:2/h:reverb/h:reverb2/[8]high[style:knob]", 0.5, 0, 1, 0.1);
 // low_cutoff = hslider("/v:2/h:reverb/h:reverb2/[9]low_cutoff[style:knob]", 100, 100, 6000, 1);
 // high_cutoff = hslider("/v:2/h:reverb/h:reverb2/[10]high_cutoff[style:knob]", 1000, 1000, 10000, 1);
-fb1 = hslider("/v:2/h:3/h:reverb/[0]fb1[style:knob]", 0, 0, 1, 0.01);
-fb2 = hslider("/v:2/h:3/h:reverb/[1]fb2[style:knob]", 0, 0, 1, 0.01);
-spread = hslider("/v:2/h:3/h:reverb/[3]spread[style:knob]", 0, 0, 1, 0.01);
+// fb1 = hslider("/v:2/h:3/h:reverb/[0]fb1[style:knob]", 0, 0, 1, 0.01);
+// fb2 = hslider("/v:2/h:3/h:reverb/[1]fb2[style:knob]", 0, 0, 1, 0.01);
+// spread = hslider("/v:2/h:3/h:reverb/[3]spread[style:knob]", 0, 0, 1, 0.01);
+// Reverb = checkbox("/v:1/[3]Reverb");
 
-Reverb = checkbox("/v:1/[3]Reverb");
+sus = hslider("/v:2/h:envelop/[2]sustain[style:knob][midi:ctrl 64]",1,0,1,1);
+pedal = button("pedal");
+pedalGate = pedal + sus : min(1);
 
 // Settings
 gain = hslider("/h:settings/v:Voice/gain", 0.2, 0, 1, 0.01) * 0.2;
 gate = checkbox("/v:1/[0]gate");
 duty = hslider("/h:settings/v:Voice/duty", 0.99, 0, 1, 0.01);
-wave = os.pulsetrain(freq, duty);
+wave = os.pulsetrain(freq * bend, duty);
 
-process = wave + selectedBreath * breathVolume <: formantFilterbank :> fi.lowpass(2, freq * 5) * gain * envelop * gate * t <: _, _;
+process = wave + selectedBreath * breathVolume <: formantFilterbank :> fi.lowpass(2, freq * 5) * gain * envelop * gate <: _, _;
 
 // <: _, _ : re.jpverb(t60, damp, size, early_diff, mod_depth, mod_freq, low, mid, high, low_cutoff, high_cutoff) : _, _ ;
 // <: _, _ : re.greyhole(dt, damp, size, early_diff, feedback, mod_depth, mod_freq) : _, _;
