@@ -141,6 +141,11 @@ const mapPitchToBend = (pitchAngle) => {
 
 // 更新bend参数的函数
 const updateBend = (bendValue) => {
+    if (window.currentVoiceMode === "Mono") {
+        console.log("Bend 控制在单音模式下禁用");
+        return; // 禁用 bend 控制
+    }
+
     const bendParamName = "/tenorflow/2/vibrato/bend";
     if (window.faustNode && window.faustNode.parameters.has(bendParamName)) {
         window.faustNode.parameters.get(bendParamName).value = bendValue;
@@ -231,16 +236,20 @@ async function predictWebcam() {
                 }
 
                 // Bend 控制逻辑：通过手腕的俯仰角度控制bend
-                if (wrist && indexMCP) {
-                    const pitchAngle = calculatePitch(wrist, indexMCP);
-                    let bendValue = mapPitchToBend(pitchAngle);
-
-                    // 平滑过渡
-                    bendValue = prevBendValue + (bendValue - prevBendValue) * smoothingFactor;
-                    prevBendValue = bendValue;
-
-                    // 更新bend参数
-                    updateBend(bendValue);
+                if (window.currentVoiceMode === "Poly") { // 只有 Poly 模式才允许更新 bend 参数
+                    if (wrist && indexMCP) {
+                        const pitchAngle = calculatePitch(wrist, indexMCP);
+                        let bendValue = mapPitchToBend(pitchAngle);
+                
+                        // 平滑过渡
+                        bendValue = prevBendValue + (bendValue - prevBendValue) * smoothingFactor;
+                        prevBendValue = bendValue;
+                
+                        // 更新 bend 参数
+                        updateBend(bendValue);
+                    }
+                } else {
+                    console.log("当前模式为 Mono，忽略 bend 更新");
                 }
             } else if (i === 1) {
                 // 第二只手：Vibrato 控制逻辑

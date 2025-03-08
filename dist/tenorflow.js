@@ -412,12 +412,16 @@ const bindButtons = (faustNode, faustUI) => {
         toggleVoiceButton.textContent = voice === 0 ? "当前模式: 单音 (Mono)" : "当前模式: 多音 (Poly)";
     };
 
+    // 设置 currentVoiceMode 根据 URL 参数
+    window.currentVoiceMode = voice === 0 ? "Mono" : "Poly"; // 更新模式状态
+    
     // 初始化按钮文本
     updateButtonText();
 
     // 按钮点击事件：切换模式并刷新页面
     toggleVoiceButton.addEventListener("click", () => {
         voice = voice === 0 ? 8 : 0; // 切换 voice 参数
+        window.currentVoiceMode = voice === 0 ? "Mono" : "Poly"; // 更新模式状态
         urlParams.set("v", voice);
 
         // 更新 URL 并刷新页面
