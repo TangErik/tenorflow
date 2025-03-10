@@ -136,7 +136,7 @@ $buttonDsp.onclick = () => {
  */
 const createFaustNode = async (audioContext, dspName = "template", voices = 0, sp = false) => {
     // Import necessary Faust modules and data
-    const { FaustMonoDspGenerator, FaustPolyDspGenerator, instantiateFaustModule, LibFaust, FaustCompiler } = await import("./faustwasm/index.js");
+    const { FaustMonoDspGenerator, FaustPolyDspGenerator, instantiateFaustModule, LibFaust, FaustCompiler } = await import("./faustwasm/esm-bundle/index.js");
 
     const faustModule = await instantiateFaustModule();
     const libFaust = new LibFaust(faustModule);
