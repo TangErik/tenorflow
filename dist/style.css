@@ -25,6 +25,18 @@ body, html {
     flex-direction: column;
 }
 
+.top-title {
+    font-family: 'Lobster', cursive; /* 艺术字体 */
+    font-style: italic; /* 斜体 */
+    font-weight: bold; /* 加粗 */
+    font-size: 120px; /* 调整字体大小 */
+    color: rgb(0, 136, 255); /* 设置文字颜色 */
+    position: absolute; /* 让标题固定在左侧 */
+    left: 50px; /* 调整左边距 */
+    top: 1px;
+    text-shadow: 0 0 5px #00f6ff, 0 0 10px #00e1ff, 0 0 15px #00aaff; /* 霓虹蓝光 */
+}
+
 .trapezoid {
     justify-content: center;
     align-items: center;

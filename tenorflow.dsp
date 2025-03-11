@@ -32,7 +32,7 @@ freq = hslider("/h:settings/v:Voice/freq", 150, 20, 500, 0.1) + vibrato_effect +
 // Envelop
 a = hslider("/v:2/h:envelop/[0]attack[style:knob]", 0.32, 0, 2, 0.01);
 d = hslider("/v:2/h:envelop/[1]decay[style:knob]", 0.26, 0, 8, 0.01);
-s = hslider("/v:2/h:envelop/[2]sustain[style:knob]", 0, 0, 1, 0.01);
+s = hslider("/v:2/h:envelop/[2]sustain[style:knob]", 1, 0, 1, 0.01);
 r = hslider("/v:2/h:envelop/[3]release[style:knob]", 0.21, 0, 8, 0.01);
 // t = button("/v:1/[2]trigger");
 envelop = en.adsr(a, d, s, r, gate);
