@@ -6,16 +6,17 @@ body, html {
 }
 
 .container {
+    width: 100vw; /* 视口宽度 */
+    height: 100vh; /* 视口高度 */
     display: flex;
     flex-direction: column;
-    height: 100%;
-    background: rgb(80, 167, 255);
+    justify-content: center; /* 使内容垂直居中 */
+    align-items: center; /* 使内容水平居中 */
     background: radial-gradient(circle, rgba(80, 167, 255,1) 0%, rgba(70,243,252,1) 100%);
 }
 
+
 .top-bar {
-    background: rgb(80, 182, 255);
-    background: radial-gradient(circle, rgba(80, 182, 255) 0%, rgba(70,243,252,1) 100%);
     padding: 10px;
     display: flex;
     justify-content: center;
@@ -533,4 +534,43 @@ footer {
     height: 300px !important; 
     top: -250px !important; 
     right: 250px !important;
+}
+
+#midi-input {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    background: linear-gradient(90deg, #5caafc, #64affa); /* 渐变变浅 */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+}
+
+#select-midi-input {
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: white;
+}
+
+#button-dsp, #toggleVoice {
+    padding: 5px 15px;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    background: linear-gradient(90deg, #3697ff, #66b2ff); /* 渐变变浅 */
+
+}
+
+#button-dsp:hover, #toggleVoice:hover {
+    border-color: #73b2f5; /* 悬停时边框变亮 */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* 增强阴影 */
+    transform: scale(1.05); /* 悬停时恢复为正常大小 */
+}
+
+#button-dsp:active, #toggleVoice:active {
+    background-color: #4d9ff6;
 }

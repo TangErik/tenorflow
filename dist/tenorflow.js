@@ -409,7 +409,7 @@ const bindButtons = (faustNode, faustUI) => {
     // 获取按钮元素
     const toggleVoiceButton = document.getElementById("toggleVoice");
     const updateButtonText = () => {
-        toggleVoiceButton.textContent = voice === 0 ? "当前模式: 单音 (Mono)" : "当前模式: 多音 (Poly)";
+        toggleVoiceButton.textContent = voice === 0 ? "当前模式: Mono（点击切换）" : "当前模式: Poly（点击切换）";
     };
 
     // 设置 currentVoiceMode 根据 URL 参数
