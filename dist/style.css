@@ -501,8 +501,8 @@ footer {
     border: none; /* 移除边框 */
     border-radius: 5px; /* 圆角效果 */
     cursor: pointer; /* 鼠标移入变为手型 */
-    right: 520px;
-    top: -260px;
+    right: 650px;
+    top: -320px;
 }
 
 #webcamButton:hover {
@@ -522,8 +522,8 @@ footer {
     width: 430px !important;
     height: 330px !important;
     position: absolute;
-    top: -290px !important;
-    right: 320px !important;
+    top: -330px !important;
+    right: 325px !important;
 } 
 .output_canvas {
     transform: rotateY(180deg);
